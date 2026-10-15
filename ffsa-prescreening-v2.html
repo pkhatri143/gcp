@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FFSA.108 — Prescreening</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+ * Built from the live Figma frame "Prescreening" (node 247:18105).
+ * Every measurement and token below comes from get_design_context, not
+ * from a screenshot guess. Token names match tokens.css.
+ * ===================================================================== */
+:root {
+  /* primitives */
+  --primitive-color-blue-10: #020631;
+  --primitive-color-blue-50: #4353ff;
+  --primitive-color-bg-card: #ffffff;
+  --primitive-color-bg-page: #f9f9fc;
+  --primitive-color-neutral-100: #e5e7ef;
+  --primitive-color-neutral-300: #9ca5be;
+  --primitive-color-neutral-400: #68769c;
+  --primitive-color-neutral-600: #47506a;
+  --primitive-color-semantic-bg-blue: #e9f2ff;
+  --primitive-color-semantic-text-blue: #0055d4;
+  --primitive-color-semantic-element-grey: #9ca5be;
+  --primitive-color-indicator-accent-1: #aeb5ff;
+  --primitive-color-indicator-accent-2: #7eb9ff;
+  --primitive-color-indicator-accent-4: #f5baff;
+
+  /* semantic */
+  --color-text-primary: var(--primitive-color-blue-10);
+  --color-text-label: var(--primitive-color-neutral-600);
+  --color-text-link: var(--primitive-color-semantic-text-blue);
+  --color-surface-primary: var(--primitive-color-bg-page);
+  --color-surface-secondary: var(--primitive-color-bg-card);
+  --color-button-default: var(--primitive-color-blue-50);
+  --color-text-secondary-button: var(--primitive-color-blue-50);
+
+  --font-family-body: "Poppins", sans-serif;
+
+  /* Effect style "Regular 1": drop shadow, offset (2,4), blur 8, #68769C14 */
+  --shadow-regular-1: 2px 4px 8px rgba(104, 118, 156, 0.08);
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--font-family-body); background: var(--color-surface-primary); color: var(--color-text-primary); }
+button { font-family: inherit; }
+
+.app { display: flex; min-height: 100vh; }
+
+/* ---- Side Navigation Panel: 108px wide, bg = color/primary/blue-10 ---- */
+.sidenav { width: 108px; flex-shrink: 0; background: var(--primitive-color-blue-10); padding: 32px 24px; display: flex; flex-direction: column; justify-content: space-between; align-items: center; position: sticky; top: 0; height: 100vh; }
+.sidenav-top { display: flex; flex-direction: column; align-items: center; gap: 48px; width: 100%; }
+.logo-row { position: relative; width: 100%; height: 48px; display: flex; align-items: center; justify-content: center; }
+.logo { width: 60px; height: 49px; position: relative; color: #fff; font-weight: 700; font-size: 28px; display: flex; align-items: center; justify-content: center; }
+.logo img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.collapse-btn { position: absolute; left: 71.5px; top: 0; min-width: 44px; min-height: 44px; padding: 10px; background: var(--color-surface-secondary); border: 1px solid var(--primitive-color-blue-10); border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--primitive-color-blue-10); z-index: 2; }
+.nav-list { display: flex; flex-direction: column; gap: 16px; width: 54px; }
+.nav-item { display: flex; align-items: center; justify-content: center; padding: 12px; border-radius: 8px; background: none; border: none; color: #fff; cursor: pointer; }
+.nav-item:hover { background: rgba(255,255,255,0.1); }
+
+/* ---- Main column: 1524px content at 1728 frame width ---- */
+.main { flex: 1; min-width: 0; padding: 32px 48px 48px; }
+.content { max-width: 1524px; display: flex; flex-direction: column; gap: 32px; }
+.head { display: flex; flex-direction: column; gap: 24px; }
+
+/* Breadcrumb + shell bar */
+.row-top { display: flex; align-items: center; justify-content: space-between; height: 56px; }
+.breadcrumb { display: flex; align-items: flex-start; font-size: 14px; line-height: 20px; }
+.crumb { padding: 12px 8px; white-space: nowrap; }
+.crumb + .crumb { padding: 12px 4px; }
+.crumb a { color: var(--color-button-default); text-decoration: none; }
+.crumb .sep { color: var(--primitive-color-neutral-300); }
+.crumb.current { color: var(--color-text-primary); }
+.shell { display: flex; align-items: center; gap: 25px; padding: 4px 0; }
+.lang { display: flex; align-items: center; gap: 8px; height: 40px; font-size: 16px; line-height: 24px; color: #000; }
+.shell-right { display: flex; align-items: center; gap: 24px; }
+.avatar { width: 48px; height: 48px; border-radius: 24px; background: var(--primitive-color-indicator-accent-4); border: 1px solid var(--primitive-color-neutral-300); display: flex; align-items: center; justify-content: center; font-size: 20px; line-height: 30px; font-weight: 600; color: #000; text-transform: capitalize; }
+.icon-plain { display: flex; background: none; border: none; color: var(--color-text-primary); padding: 0; cursor: pointer; }
+
+/* Toolbar card: 63px, radius 8 */
+.toolbar { background: var(--color-surface-secondary); border: 1px solid var(--primitive-color-neutral-100); border-radius: 8px; min-height: 63px; padding: 8px 16px 8px 8px; display: flex; align-items: center; justify-content: space-between; gap: 8px; position: sticky; top: 0; z-index: 5; }
+.tool-group { display: flex; align-items: center; gap: 8px; }
+/* Button / Tertiary / Large (icon-only 48x40) */
+.btn-tertiary { display: inline-flex; align-items: center; justify-content: center; gap: 4px; height: 40px; min-width: 48px; padding: 8px 12px; background: none; border: none; border-radius: 8px; color: var(--color-text-secondary-button); font-weight: 600; font-size: 20px; line-height: 30px; cursor: pointer; }
+.btn-tertiary:hover { background: var(--primitive-color-semantic-bg-blue); }
+.btn-tertiary.text-only { height: 46px; }
+/* Button / Primary / Medium with trailing icon */
+.btn-primary-md { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 8px 12px; background: var(--color-button-default); color: #fff; border: none; border-radius: 8px; font-weight: 600; font-size: 16px; line-height: 24px; cursor: pointer; }
+
+/* Entity summary card: 158px, radius 16 */
+.summary { background: var(--color-surface-secondary); border: 1px solid var(--primitive-color-neutral-100); border-radius: 16px; padding: 16px; display: flex; align-items: center; justify-content: space-between; gap: 24px; overflow: hidden; flex-wrap: wrap; }
+.summary-left { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.thumb { width: 126px; height: 126px; border-radius: 12px; flex-shrink: 0; overflow: hidden; background: linear-gradient(135deg, #b8452f, #7a2a1c); }
+.thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.summary-text { display: flex; flex-direction: column; gap: 8px; width: 261px; }
+.title { margin: 0; font-size: 24px; line-height: 30px; font-weight: 700; color: var(--color-text-primary); }   /* Header 5 */
+.subtitle { margin: 0; font-size: 16px; line-height: 24px; color: var(--color-text-primary); }                /* Body Medium */
+.stat-wrap { background: #fff; border-radius: 12px; padding: 16px; display: flex; gap: 26px; align-items: center; }
+.stat { background: var(--color-surface-primary); border-left: 2px solid; border-radius: 7px; box-shadow: var(--shadow-regular-1); height: 70px; padding: 9px 8px; display: flex; flex-direction: column; gap: 4px; }
+.stat .k { font-size: 14px; line-height: 20px; color: var(--color-text-label); }
+.stat .v { font-size: 16px; line-height: 24px; color: var(--color-text-primary); }
+.stat .v.link { font-size: 14px; line-height: 20px; font-style: italic; color: var(--color-text-link); }          /* Link 1 */
+
+/* Tabs: bar 40px, active = semantic-bg/blue + 2px blue-50 underline */
+.tabs { background: var(--color-surface-primary); border-bottom: 1px solid var(--primitive-color-neutral-100); height: 40px; display: flex; }
+.tab { display: flex; align-items: center; height: 40px; padding: 8px 16px; background: var(--color-surface-primary); border: none; border-bottom: 2px solid var(--primitive-color-neutral-100); color: var(--color-text-primary); font-size: 16px; line-height: 24px; cursor: pointer; white-space: nowrap; }
+.tab.active { background: var(--primitive-color-semantic-bg-blue); border-bottom-color: var(--color-button-default); color: var(--color-text-secondary-button); padding: 8px 10px; cursor: default; }
+
+/* Content card + two panels */
+.panel-wrap { background: var(--color-surface-secondary); border: 1px solid var(--primitive-color-neutral-100); border-radius: 16px; padding: 16px; min-height: 600px; }
+.panels { display: flex; gap: 48px; align-items: flex-start; flex-wrap: wrap; }
+.panel { background: var(--color-surface-secondary); border: 1px solid var(--primitive-color-neutral-100); border-radius: 16px; padding: 16px; }
+.panel.inputs { width: 730px; max-width: 100%; }
+.panel.outputs { width: 565px; max-width: 100%; }
+.panel-inner { display: flex; flex-direction: column; gap: 22px; width: 410px; max-width: 100%; }
+.panel.outputs .panel-inner { width: 533px; }
+.panel-title { margin: 0; font-size: 16px; line-height: 20px; font-weight: 600; }                          /* Sub Header 2 */
+.fields { display: flex; flex-direction: column; gap: 24px; width: 100%; }
+.q { display: flex; flex-direction: column; gap: 6px; }
+.q-label { font-size: 16px; line-height: 24px; max-width: 422px; }
+.radios { display: flex; align-items: center; }
+.radio { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.radio .r-label { font-size: 14px; line-height: 20px; width: 120px; }
+.radio input { appearance: none; -webkit-appearance: none; width: 18px; height: 18px; margin: 7px; border-radius: 50%; border: 1.5px solid var(--primitive-color-neutral-400); background: var(--primitive-color-neutral-100); cursor: pointer; flex-shrink: 0; }
+.radio input:checked { border-color: var(--color-button-default); background: radial-gradient(circle, var(--color-button-default) 0 38%, #fff 42%); }
+.radio input:focus-visible { outline: 2px solid var(--primitive-color-semantic-bg-blue); outline-offset: 2px; box-shadow: 0 0 0 2px var(--color-button-default); }
+
+/* Text Input / dropdown field */
+.field { display: flex; flex-direction: column; gap: 1px; width: 100%; position: relative; }
+.field-label { font-size: 14px; line-height: 20px; color: var(--color-text-label); }
+.field-box { display: flex; align-items: center; justify-content: space-between; height: 42px; background: var(--color-surface-secondary); border: 1px solid var(--primitive-color-neutral-300); border-radius: 4px; padding: 12px 8px; font-size: 14px; line-height: 20px; color: var(--color-text-primary); cursor: pointer; text-align: left; width: 100%; }
+.field-box:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--primitive-color-indicator-accent-1); }
+.menu { position: absolute; top: 100%; left: 0; right: 0; margin: 4px 0 0; padding: 4px 0; list-style: none; background: var(--color-surface-secondary); border: 1px solid var(--primitive-color-neutral-100); border-radius: 4px; box-shadow: var(--shadow-regular-1); z-index: 10; display: none; }
+.menu.open { display: block; }
+.menu li { padding: 8px; font-size: 14px; line-height: 20px; cursor: pointer; }
+.menu li:hover { background: var(--color-surface-primary); }
+.readonly-val { padding: 12px 0; font-size: 14px; line-height: 20px; color: var(--primitive-color-blue-10); }
+
+/* AI assistant FAB: 66px, bg blue-10 */
+.fab { position: fixed; right: 38px; bottom: 37px; width: 66px; height: 66px; border-radius: 38px; background: var(--primitive-color-blue-10); border: none; color: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 21px rgba(0,0,0,0.25); cursor: pointer; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- Side Navigation Panel -->
+  <aside class="sidenav">
+    <div class="sidenav-top">
+      <div class="logo-row">
+        <div class="logo">A<img alt="" src="https://www.figma.com/api/mcp/asset/584b43f8-616f-4b09-a916-19392de9d519/cde3d.svg" onerror="this.remove()"></div>
+        <button class="collapse-btn" aria-label="Expand navigation"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
+      <nav class="nav-list">
+        <button class="nav-item" aria-label="Dashboard"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l6 3"/></svg></button>
+        <button class="nav-item" aria-label="Apps"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="5" r="1.8"/><circle cx="12" cy="5" r="1.8"/><circle cx="19" cy="5" r="1.8"/><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/><circle cx="5" cy="19" r="1.8"/><circle cx="12" cy="19" r="1.8"/><circle cx="19" cy="19" r="1.8"/></svg></button>
+        <button class="nav-item" aria-label="Shopping bag"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></button>
+        <button class="nav-item" aria-label="Support"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 13a8 8 0 0 1 16 0"/><rect x="3" y="13" width="4" height="6" rx="1"/><rect x="17" y="13" width="4" height="6" rx="1"/></svg></button>
+        <button class="nav-item" aria-label="Settings"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1 1.55V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1-1.55 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.55-1H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.55V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9a1.7 1.7 0 0 0 1.55 1H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.55 1z"/></svg></button>
+      </nav>
+    </div>
+    <button class="nav-item" aria-label="Log out"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg></button>
+  </aside>
+
+  <div class="main">
+    <div class="content">
+      <div class="head">
+
+        <!-- Breadcrumb + Shell Bar -->
+        <div class="row-top">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <div class="crumb"><a href="#">Fitness For Service Assessment</a> <span class="sep">/</span></div>
+            <div class="crumb current">FFSA.108</div>
+          </nav>
+          <div class="shell">
+            <div class="lang">
+              <svg width="24" height="24" viewBox="0 0 24 24"><clipPath id="fc"><circle cx="12" cy="12" r="10"/></clipPath><g clip-path="url(#fc)"><rect width="24" height="24" fill="#fff"/><g fill="#d60000"><rect y="2" width="24" height="2.2"/><rect y="6.4" width="24" height="2.2"/><rect y="10.8" width="24" height="2.2"/><rect y="15.2" width="24" height="2.2"/><rect y="19.6" width="24" height="2.2"/></g><rect width="12" height="12.4" fill="#2a3a8c"/></g></svg>
+              EN
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 10l5 5 5-5"/></svg>
+            </div>
+            <div class="shell-right">
+              <button class="icon-plain" aria-label="Notifications"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+              <div class="avatar" title="Jane Doe">JD</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action toolbar -->
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div class="toolbar" role="toolbar" aria-label="Assessment actions">
+            <button class="btn-tertiary" aria-label="Back"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <div class="tool-group">
+              <button class="btn-tertiary" aria-label="Info"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg></button>
+              <button class="btn-tertiary" aria-label="Attachments"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 11.5l-8.5 8.5a5 5 0 0 1-7-7L14 4.5a3.3 3.3 0 0 1 4.7 4.7L10.2 17.7a1.7 1.7 0 0 1-2.4-2.4L15 8"/></svg></button>
+              <button class="btn-tertiary" aria-label="Edit options"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 10l5 5 5-5"/></svg></button>
+              <button class="btn-tertiary" aria-label="Save"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg></button>
+              <button class="btn-tertiary" aria-label="Delete"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg></button>
+              <button class="btn-tertiary" aria-label="Export report"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5z"/><path d="M14 3v5h5"/><path d="M12 11v6m0 0l-2.5-2.5M12 17l2.5-2.5"/></svg></button>
+              <button class="btn-tertiary" aria-label="More options"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="19" cy="12" r="1.7"/></svg></button>
+              <button class="btn-tertiary text-only">CMLs</button>
+              <button class="btn-primary-md" id="statusBtn">In Process <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 10l5 5 5-5"/></svg></button>
+            </div>
+          </div>
+
+          <!-- Entity summary -->
+          <div class="summary">
+            <div class="summary-left">
+              <div class="thumb"><img alt="FFSA.108 equipment" src="https://www.figma.com/api/mcp/asset/584b43f8-616f-4b09-a916-19392de9d519/b6a96.png" onerror="this.remove()"></div>
+              <div class="summary-text">
+                <h1 class="title">FFSA.108</h1>
+                <p class="subtitle">Local External Corrosion</p>
+              </div>
+            </div>
+            <div class="stat-wrap">
+              <div class="stat" style="width:180px;border-left-color:var(--primitive-color-indicator-accent-1)"><span class="k">Assessment Model:</span><span class="v">API 579/ASME FFS</span></div>
+              <div class="stat" style="width:180px;border-left-color:var(--primitive-color-indicator-accent-2)"><span class="k">Asset Inspection:</span><a href="#" class="v link" style="text-decoration:none">INSP.002</a></div>
+              <div class="stat" style="width:212px;border-left-color:var(--primitive-color-semantic-element-grey)"><span class="k">Finding:</span><a href="#" class="v link" style="text-decoration:none">PMFI.001</a></div>
+            </div>
+          </div>
+
+          <!-- Tabs -->
+          <div class="tabs" role="tablist">
+            <button class="tab" role="tab" aria-selected="false">General Information</button>
+            <button class="tab active" role="tab" aria-selected="true">Prescreening</button>
+            <button class="tab" role="tab" aria-selected="false">Assessment Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab panel -->
+      <div class="panel-wrap">
+        <div class="panels">
+          <section class="panel inputs" aria-labelledby="inputsTitle">
+            <div class="panel-inner">
+              <h2 class="panel-title" id="inputsTitle">Inputs</h2>
+              <div class="fields">
+                <fieldset class="q" style="border:0;padding:0;margin:0;width:328px;max-width:100%">
+                  <legend class="q-label" style="padding:0">Material operates in Creep temp range?</legend>
+                  <div class="radios">
+                    <label class="radio"><input type="radio" name="q1"><span class="r-label">Yes</span></label>
+                    <label class="radio"><input type="radio" name="q1"><span class="r-label">No</span></label>
+                  </div>
+                </fieldset>
+                <fieldset class="q" style="border:0;padding:0;margin:0;width:100%">
+                  <legend class="q-label" style="padding:0">Metal loss has relatively smooth contours with no notches?</legend>
+                  <div class="radios">
+                    <label class="radio"><input type="radio" name="q2"><span class="r-label">Yes</span></label>
+                    <label class="radio"><input type="radio" name="q2"><span class="r-label">No</span></label>
+                  </div>
+                </fieldset>
+                <fieldset class="q" style="border:0;padding:0;margin:0;width:100%">
+                  <legend class="q-label" style="padding:0">Material has sufficient fracture toughness?</legend>
+                  <div class="radios">
+                    <label class="radio"><input type="radio" name="q3"><span class="r-label">Yes</span></label>
+                    <label class="radio"><input type="radio" name="q3"><span class="r-label">No</span></label>
+                  </div>
+                </fieldset>
+                <fieldset class="q" style="border:0;padding:0;margin:0;width:100%">
+                  <legend class="q-label" style="padding:0">Component in cyclic service?</legend>
+                  <div class="radios">
+                    <label class="radio"><input type="radio" name="q4"><span class="r-label">Yes</span></label>
+                    <label class="radio"><input type="radio" name="q4"><span class="r-label">No</span></label>
+                  </div>
+                </fieldset>
+
+                <div class="field" data-select>
+                  <span class="field-label">Component Type:</span>
+                  <button type="button" class="field-box" aria-haspopup="listbox" aria-expanded="false"><span class="val">Type A</span><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 10l5 5 5-5"/></svg></button>
+                  <ul class="menu" role="listbox"><li role="option">Type A</li><li role="option">Type B</li><li role="option">Type C</li></ul>
+                </div>
+                <div class="field" data-select>
+                  <span class="field-label">Load Type:</span>
+                  <button type="button" class="field-box" aria-haspopup="listbox" aria-expanded="false"><span class="val">Internal Pressure</span><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 10l5 5 5-5"/></svg></button>
+                  <ul class="menu" role="listbox"><li role="option">Internal Pressure</li><li role="option">External Pressure</li><li role="option">Combined Loading</li></ul>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel outputs" aria-labelledby="outputsTitle">
+            <div class="panel-inner">
+              <h2 class="panel-title" id="outputsTitle">Outputs</h2>
+              <div class="fields">
+                <div class="field">
+                  <span class="field-label">Screening Results:</span>
+                  <div class="readonly-val">General Metal Loss Not Applicable, Level 1 Assessment, Level 2 Assessment</div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button class="fab" aria-label="AI assistant"><svg width="22" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M10 3l1.8 5.2L17 10l-5.2 1.8L10 17l-1.8-5.2L3 10l5.2-1.8L10 3z"/><path d="M18 14l.9 2.1L21 17l-2.1.9L18 20l-.9-2.1L15 17l2.1-.9L18 14z"/></svg></button>
+
+<script>
+  // Dropdown fields (same behaviour as SelectField.vue): click to open, pick to close
+  document.querySelectorAll('[data-select]').forEach(function (wrap) {
+    var btn = wrap.querySelector('.field-box'), menu = wrap.querySelector('.menu'), val = wrap.querySelector('.val');
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open);
+    });
+    menu.querySelectorAll('li').forEach(function (li) {
+      li.addEventListener('click', function () { val.textContent = li.textContent; menu.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); });
+    });
+  });
+  document.addEventListener('click', function () { document.querySelectorAll('.menu.open').forEach(function (m) { m.classList.remove('open'); }); });
+</script>
+</body>
+</html>

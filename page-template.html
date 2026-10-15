@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Standard page layout — Template</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+ * STANDARD PAGE LAYOUT — built from the Figma library frame "Template"
+ * (node 11506:8802). Markup is the server-rendered output of the real Vue
+ * components (ShellBar.vue, SideNavigationPanel.vue); CSS is copied from
+ * those components and PageLayout.vue; tokens are tokens.css, inlined so the
+ * file opens on its own. New pages should reuse this layout.
+ * ===================================================================== */
+/**
+ * Design tokens — GCP Design System (Figma: dyyiBTD6tJ57ggwSZToFbY)
+ * Generated from exported Figma Variables (DTCG format):
+ *   Primitives.zip, Color_Tokens.zip, Typography_Tokens.zip, Spacing.zip, Radius.zip
+ *
+ * Two tiers, same pattern Figma itself uses:
+ *   1. PRIMITIVES — raw scale values, never used directly in components
+ *   2. SEMANTIC   — purpose-named tokens that alias primitives; components
+ *                    should only ever reference these
+ */
+
+:root {
+  /* =========================================================
+   * TIER 1 — PRIMITIVES
+   * ========================================================= */
+
+  /* Color / Primary */
+  --primitive-color-blue-10: #020631;
+  --primitive-color-blue-50: #4353ff;
+
+  /* Color / Background */
+  --primitive-color-bg-card: #ffffff;
+  --primitive-color-bg-page: #f9f9fc;
+
+  /* Color / Neutral scale */
+  --primitive-color-neutral-100: #e5e7ef;
+  --primitive-color-neutral-200: #c4cbdd;
+  --primitive-color-neutral-300: #9ca5be;
+  --primitive-color-neutral-400: #68769c;
+  --primitive-color-neutral-500: #535f7f;
+  --primitive-color-neutral-600: #47506a;
+  --primitive-color-neutral-700: #202430;
+
+  /* Color / Semantic backgrounds (tinted surfaces) */
+  --primitive-color-semantic-bg-grey: #f5f5f5;
+  --primitive-color-semantic-bg-blue: #e9f2ff;
+  --primitive-color-semantic-bg-purple: #f5eefb;
+  --primitive-color-semantic-bg-green: #dcfff1;
+  --primitive-color-semantic-bg-orange: #fff3eb;
+  --primitive-color-semantic-bg-red: #ffecee;
+
+  /* Color / Semantic elements (icons, indicators) */
+  --primitive-color-semantic-element-green: #008516;
+  --primitive-color-semantic-element-orange: #ec6e0e;
+  --primitive-color-semantic-element-yellow: #e9b312;
+  --primitive-color-semantic-element-red: #d60000;
+  --primitive-color-semantic-element-blue: #0055d4;
+  --primitive-color-semantic-element-grey: #9ca5be;
+
+  /* Color / Semantic text */
+  --primitive-color-semantic-text-green: #008516;
+  --primitive-color-semantic-text-orange: #b95100;
+  --primitive-color-semantic-text-red: #b30000;
+  --primitive-color-semantic-text-blue: #0055d4;
+
+  /* Color / Chart indicators */
+  --primitive-color-indicator-accent-1: #aeb5ff;
+  --primitive-color-indicator-accent-2: #7eb9ff;
+  --primitive-color-indicator-accent-3: #ffc684;
+  --primitive-color-indicator-accent-4: #f5baff;
+  --primitive-color-indicator-accent-5: #e6e7e9;
+  --primitive-color-indicator-accent-6: #f46200;
+  --primitive-color-indicator-accent-7: #0075ff;
+  --primitive-color-indicator-accent-8: #f5cc00;
+  --primitive-color-indicator-accent-9: #c600bf;
+  --primitive-color-indicator-accent-10: #02c8f0;
+  --primitive-color-indicator-accent-11: #00c882;
+  --primitive-color-indicator-accent-12: #8528f8;
+  --primitive-color-indicator-primary: #4353ff;
+
+  /* Color / Interactive states */
+  --primitive-color-states-blue-20: #00085c;
+  --primitive-color-states-blue-30: #1e2896;
+  --primitive-color-states-blue-40: #3745db;
+  --primitive-color-states-blue-70: #9da5ff;
+  --primitive-color-states-purple-60: #a43dff;
+  --primitive-color-states-red-30: #b30000;
+  --primitive-color-states-red-40: #d10000;
+  --primitive-color-states-red-60: #f4b3b3;
+  --primitive-color-states-orange-30: #a64f0a;
+  --primitive-color-states-orange-40: #cc5f0c;
+  --primitive-color-states-orange-60: #f4c9a3;
+  --primitive-color-states-green-30: #00560e;
+  --primitive-color-states-green-40: #006d12;
+  --primitive-color-states-green-60: #a6d5b1;
+
+  /* Color / misc */
+  --primitive-color-ai-purple: #6d51fe;
+
+  /* Typography */
+  --primitive-font-family-header: "Poppins", sans-serif;
+  --primitive-font-family-sub-header: "Poppins", sans-serif;
+  --primitive-font-family-body: "Poppins", sans-serif;
+  --primitive-font-weight-regular: 400;
+  --primitive-font-weight-semi-bold: 600;
+  --primitive-font-weight-bold: 700;
+  --primitive-font-weight-italic: italic;
+  --primitive-font-size-10: 10px;
+  --primitive-font-size-12: 12px;
+  --primitive-font-size-14: 14px;
+  --primitive-font-size-16: 16px;
+  --primitive-font-size-20: 20px;
+  --primitive-font-size-24: 24px;
+  --primitive-font-size-32: 32px;
+  --primitive-font-size-36: 36px;
+  --primitive-font-size-40: 40px;
+  --primitive-font-size-48: 48px;
+  --primitive-line-height-2xs: 15px;
+  --primitive-line-height-xs: 18px;
+  --primitive-line-height-s: 20px;
+  --primitive-line-height-sm: 24px;
+  --primitive-line-height-m: 30px;
+  --primitive-line-height-l: 36px;
+  --primitive-line-height-xl: 40px;
+  --primitive-line-height-2xl: 45px;
+  --primitive-line-height-3xl: 54px;
+
+  /* Spacing scale */
+  --primitive-space-0: 0px;
+  --primitive-space-1: 2px;
+  --primitive-space-2: 4px;
+  --primitive-space-3: 8px;
+  --primitive-space-4: 12px;
+  --primitive-space-5: 16px;
+  --primitive-space-6: 20px;
+  --primitive-space-7: 24px;
+  --primitive-space-8: 32px;
+  --primitive-space-9: 40px;
+  --primitive-space-10: 48px;
+  --primitive-space-11: 64px;
+  --primitive-space-12: 80px;
+  --primitive-space-13: 120px;
+
+  /* Radius scale */
+  --primitive-radius-xxs: 2px;
+  --primitive-radius-xs: 4px;
+  --primitive-radius-s: 8px;
+  --primitive-radius-m: 12px;
+  --primitive-radius-l: 20px;
+  --primitive-radius-xl: 28px;
+  --primitive-radius-full: 999px;
+
+  /* =========================================================
+   * TIER 2 — SEMANTIC (use these in components)
+   * ========================================================= */
+
+  /* Text */
+  --color-text-primary: var(--primitive-color-blue-10);
+  --color-text-label: var(--primitive-color-neutral-600);
+  --color-text-large-text: var(--primitive-color-neutral-400);
+  --color-text-link: var(--primitive-color-semantic-text-blue);
+
+  /* Surfaces */
+  --color-surface-primary: var(--primitive-color-bg-page);
+  --color-surface-secondary: var(--primitive-color-bg-card);
+
+  /* Buttons */
+  --color-button-default: var(--primitive-color-blue-50);
+  --color-button-hover: var(--primitive-color-states-blue-40);
+  --color-button-pressed: var(--primitive-color-states-blue-30);
+  --color-button-disabled: var(--primitive-color-states-blue-70);
+  --color-button-focus-border: var(--primitive-color-states-purple-60);
+  --color-text-primary-button: var(--primitive-color-bg-card);
+  --color-text-secondary-button: var(--primitive-color-blue-50);
+
+  /* Button — semantic variants (error / warning / success) */
+  --color-button-error-hover: var(--primitive-color-states-red-40);
+  --color-button-error-pressed: var(--primitive-color-states-red-30);
+  --color-button-error-disabled: var(--primitive-color-states-red-60);
+  --color-button-warning-hover: var(--primitive-color-states-orange-40);
+  --color-button-warning-pressed: var(--primitive-color-states-orange-30);
+  --color-button-warning-disabled: var(--primitive-color-states-orange-60);
+  --color-button-success-hover: var(--primitive-color-states-green-40);
+  --color-button-success-pressed: var(--primitive-color-states-green-30);
+  --color-button-success-disabled: var(--primitive-color-states-green-60);
+
+  /* Typography roles */
+  --font-family-body: var(--primitive-font-family-body);
+  --font-family-header: var(--primitive-font-family-header);
+  --font-family-sub-header: var(--primitive-font-family-sub-header);
+
+  /* Component geometry (confirmed against Button component earlier) */
+  --radius-button: var(--primitive-radius-s);      /* 8px */
+  --button-padding-y: var(--primitive-space-3);    /* 8px */
+  --button-padding-x: var(--primitive-space-4);    /* 12px */
+  --button-gap: var(--primitive-space-3);          /* 8px */
+
+  /* =========================================================
+   * TYPOGRAPHY STYLES — semantic scale
+   * Source: DESIGN.md (typeui.sh Figma extraction), confirmed against the
+   * same font-size/line-height primitives already in this file. This
+   * fills the "Typography semantic tier is mostly missing" gap logged in
+   * known-issues.md — only Header 1 had a confirmed mapping before this.
+   * Composite styles (family + size + weight + line-height) are exposed
+   * as grouped custom properties per style, since CSS vars can't hold a
+   * shorthand font declaration directly.
+   * ========================================================= */
+  --font-header-1-size: var(--primitive-font-size-48); --font-header-1-line-height: var(--primitive-line-height-3xl); --font-header-1-weight: var(--primitive-font-weight-bold);
+  --font-header-2-size: var(--primitive-font-size-40); --font-header-2-line-height: var(--primitive-line-height-xl); --font-header-2-weight: var(--primitive-font-weight-bold);
+  --font-header-3-size: var(--primitive-font-size-36); --font-header-3-line-height: var(--primitive-line-height-l); --font-header-3-weight: var(--primitive-font-weight-bold);
+  --font-header-4-size: var(--primitive-font-size-32); --font-header-4-line-height: var(--primitive-line-height-l); --font-header-4-weight: var(--primitive-font-weight-bold);
+  --font-header-5-size: var(--primitive-font-size-24); --font-header-5-line-height: var(--primitive-line-height-m); --font-header-5-weight: var(--primitive-font-weight-bold);
+  --font-subheader-1-size: var(--primitive-font-size-20); --font-subheader-1-line-height: var(--primitive-line-height-sm); --font-subheader-1-weight: var(--primitive-font-weight-semi-bold);
+  --font-subheader-2-size: var(--primitive-font-size-16); --font-subheader-2-line-height: var(--primitive-line-height-s); --font-subheader-2-weight: var(--primitive-font-weight-semi-bold);
+  --font-subheader-3-size: var(--primitive-font-size-14); --font-subheader-3-line-height: var(--primitive-line-height-s); --font-subheader-3-weight: var(--primitive-font-weight-semi-bold);
+  --font-body-large-size: var(--primitive-font-size-20); --font-body-large-line-height: var(--primitive-line-height-m); --font-body-large-weight: var(--primitive-font-weight-regular);
+  --font-body-medium-size: var(--primitive-font-size-16); --font-body-medium-line-height: var(--primitive-line-height-sm); --font-body-medium-weight: var(--primitive-font-weight-regular);
+  --font-body-small-size: var(--primitive-font-size-14); --font-body-small-line-height: var(--primitive-line-height-s); --font-body-small-weight: var(--primitive-font-weight-regular);
+  --font-button-large-size: var(--primitive-font-size-20); --font-button-large-line-height: var(--primitive-line-height-m); --font-button-large-weight: var(--primitive-font-weight-semi-bold);
+  --font-button-medium-size: var(--primitive-font-size-16); --font-button-medium-line-height: var(--primitive-line-height-sm); --font-button-medium-weight: var(--primitive-font-weight-semi-bold);
+  --font-button-compact-size: var(--primitive-font-size-14); --font-button-compact-line-height: var(--primitive-line-height-s); --font-button-compact-weight: var(--primitive-font-weight-semi-bold);
+  --font-tag-1-size: var(--primitive-font-size-12); --font-tag-1-line-height: var(--primitive-line-height-xs); --font-tag-1-weight: var(--primitive-font-weight-regular);
+  --font-tag-2-size: 10px; --font-tag-2-line-height: var(--primitive-line-height-2xs); --font-tag-2-weight: var(--primitive-font-weight-regular);
+  --font-link-1-size: var(--primitive-font-size-14); --font-link-1-line-height: var(--primitive-line-height-s); --font-link-1-style: italic;
+  --font-link-2-size: var(--primitive-font-size-12); --font-link-2-line-height: var(--primitive-line-height-xs); --font-link-2-style: italic;
+
+  /* =========================================================
+   * SHADOW TOKENS
+   * Source: DESIGN.md. Fills the "no shadow token" gap flagged in
+   * SelectField.vue's dropdown menu (which was using a hardcoded
+   * rgba() shadow with a comment noting no token existed).
+   * ========================================================= */
+  --shadow-highlighted-1: 2px 4px 8px rgba(133, 40, 248, 0.08);
+  --shadow-highlighted-2: 2px 4px 10px rgba(133, 40, 248, 0.16);
+  --shadow-highlighted-3: 2px 4px 12px rgba(133, 40, 248, 0.24);
+  --shadow-highlighted-4: 2px 4px 14px rgba(133, 40, 248, 0.40);
+  --shadow-regular-1: 2px 4px 8px rgba(104, 118, 156, 0.08);
+  --shadow-regular-2: 0 4px 10px rgba(104, 118, 156, 0.16);
+  --shadow-regular-3: 2px 4px 12px rgba(104, 118, 156, 0.24);
+  --shadow-regular-4: 2px 4px 14px rgba(104, 118, 156, 0.40);
+
+  /* =========================================================
+   * GRADIENTS — from DESIGN.md Color Tokens
+   * ========================================================= */
+  --gradient-illustration-general: linear-gradient(135deg, #4353ff 0%, #6975ff 100%);
+  --gradient-app-tile: linear-gradient(180deg, #4353ff 0%, #8528f8 100%);
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+button { font-family: inherit; }
+/* demo content only — the Template leaves the container empty */
+.demo { padding: var(--primitive-space-7); color: var(--color-text-primary); }
+.demo h1 { margin: 0 0 var(--primitive-space-3); font-size: var(--font-header-5-size); line-height: var(--font-header-5-line-height); }
+.demo p { margin: 0 0 var(--primitive-space-3); max-width: 640px; font-size: var(--font-body-small-size); line-height: var(--font-body-small-line-height); color: var(--color-text-label); }
+
+.page-layout {
+  box-sizing: border-box;
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  padding-top: var(--primitive-space-5);
+  background: var(--color-surface-primary);
+  font-family: var(--font-family-body);
+}
+.page-layout-body {
+  flex: 1; min-height: 0;
+  display: flex; align-items: stretch;
+  gap: var(--primitive-space-5);
+  padding: var(--primitive-space-5) var(--primitive-space-7) var(--primitive-space-7) var(--primitive-space-5);
+}
+.page-layout-container {
+  flex: 1; min-width: 0;
+  background: var(--color-surface-secondary);
+  border: 1px solid var(--primitive-color-neutral-100);
+  border-radius: var(--primitive-radius-l);
+  overflow: auto;
+}
+
+
+.shell-bar {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: var(--primitive-space-2) var(--primitive-space-7);
+  font-family: var(--font-family-body);
+}
+.shell-logo { display: flex; align-items: center; gap: 7px; height: 32px; }
+.logo-asint {
+  font-size: var(--font-header-5-size);
+  line-height: var(--font-header-5-line-height);
+  font-weight: var(--font-header-5-weight);
+  font-style: italic;
+  color: var(--color-text-primary);
+}
+.logo-edge {
+  padding: 0 var(--primitive-space-3);
+  background: var(--gradient-app-tile);
+  border-radius: var(--primitive-radius-s);
+  color: var(--color-text-primary-button);
+  font-size: var(--font-subheader-1-size);
+  line-height: var(--font-header-5-line-height);
+  font-weight: var(--font-subheader-1-weight);
+}
+.shell-actions { display: flex; align-items: center; gap: var(--primitive-space-5); }
+.shell-bell {
+  display: flex; align-items: center; justify-content: center;
+  height: 40px; min-width: 48px; padding: var(--primitive-space-3) var(--primitive-space-4);
+  background: none; border: none; border-radius: var(--primitive-radius-s);
+  color: var(--color-text-primary); cursor: pointer;
+}
+.shell-bell:hover { background: var(--primitive-color-semantic-bg-blue); }
+.shell-profile {
+  box-sizing: border-box; width: 32px; height: 32px; padding: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--primitive-color-indicator-accent-4);
+  border: 0.667px solid var(--primitive-color-neutral-300); /* Figma: 0.667px */
+  border-radius: var(--primitive-radius-full);
+  font-family: inherit;
+  font-size: var(--font-subheader-2-size);
+  font-weight: var(--font-subheader-2-weight);
+  color: #000; /* token-exempt: NEEDS TOKEN - Figma uses literal black for avatar initials */
+  text-transform: capitalize; cursor: pointer;
+}
+.shell-bell:focus-visible, .shell-profile:focus-visible {
+  outline: 2px solid var(--color-button-focus-border);
+  outline-offset: 2px;
+}
+
+
+.snp {
+  box-sizing: border-box;
+  width: 258px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--primitive-space-5);
+  padding: var(--primitive-space-3) var(--primitive-space-5) var(--primitive-space-7) 0;
+  background: var(--color-surface-secondary);
+  border: 1px solid var(--primitive-color-neutral-100);
+  border-radius: var(--primitive-radius-l);
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-family: var(--font-family-body);
+}
+.snp-collapsed { width: 72px; }
+.snp ul { list-style: none; margin: 0; padding: 0; }
+
+/* header */
+.snp-head { display: flex; align-items: center; gap: var(--primitive-space-4); }
+.snp-collapsed .snp-head { padding-left: var(--primitive-space-5); }
+.snp-head-row {
+  flex: 1; min-width: 0;
+  display: flex; align-items: center; justify-content: space-between; gap: var(--primitive-space-2);
+  padding: var(--primitive-space-2) var(--primitive-space-4);
+}
+.snp-collapsed .snp-head-row { justify-content: center; }
+.snp-title {
+  font-size: var(--font-subheader-3-size);
+  line-height: var(--font-subheader-3-line-height);
+  font-weight: var(--font-subheader-3-weight);
+  color: var(--color-text-label);
+  text-transform: capitalize;
+}
+.snp-toggle {
+  width: 32px; height: 32px; padding: 0; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: none; border: none; border-radius: var(--primitive-radius-xs); cursor: pointer;
+}
+.snp-toggle-box {
+  width: 20px; height: 20px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--color-button-default);
+  border-radius: 6px; /* NEEDS TOKEN: 6px is off the radius scale (Figma toggle box) */
+  color: var(--color-button-default);
+}
+.snp-toggle-ico.flip { transform: scaleX(-1); }
+
+/* rows */
+.snp-group { display: flex; flex-direction: column; gap: var(--primitive-space-3); }
+.snp-row { display: flex; align-items: center; gap: var(--primitive-space-4); }
+.snp-bar { width: 4px; height: 44px; flex-shrink: 0; border-radius: var(--primitive-radius-full); background: transparent; }
+.snp-bar-active { background: var(--color-text-secondary-button); }
+.snp-spacer { width: 4px; align-self: stretch; flex-shrink: 0; }
+.snp-item {
+  box-sizing: border-box;
+  width: 200px;
+  display: flex; align-items: center; gap: var(--primitive-space-3);
+  padding: var(--primitive-space-4);
+  background: none; border: none; border-radius: var(--primitive-radius-s);
+  font-family: inherit;
+  font-size: var(--font-body-small-size);
+  line-height: var(--font-body-small-line-height);
+  color: var(--color-text-label);
+  text-align: left; cursor: pointer;
+}
+.snp-collapsed .snp-item { width: auto; flex: 1; min-width: 0; }
+.snp-item:hover { background: var(--color-surface-primary); }
+.snp-item-active { background: var(--primitive-color-semantic-bg-grey); color: var(--color-text-primary); }
+.snp-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.snp-ico { width: 16px; height: 16px; flex-shrink: 0; }
+
+/* focus: required, keyboard-first */
+.snp-toggle:focus-visible, .snp-item:focus-visible, .snp-select-btn:focus-visible,
+.snp-app-btn:focus-visible, .snp-add:focus-visible {
+  outline: 2px solid var(--color-button-focus-border);
+  outline-offset: 2px;
+}
+
+/* current project card */
+.snp-project {
+  margin-left: var(--primitive-space-4);
+  padding: var(--primitive-space-2) var(--primitive-space-5) var(--primitive-space-4) 0;
+  background: var(--color-surface-primary);
+  border: 1px solid var(--primitive-color-neutral-100);
+  border-radius: var(--primitive-radius-m);
+}
+.snp-collapsed .snp-project { padding-right: 0; }
+.snp-project-head {
+  display: flex; align-items: center; gap: var(--primitive-space-3);
+  padding: var(--primitive-space-3) var(--primitive-space-4);
+  color: var(--color-text-label);
+}
+.snp-project-body {
+  display: flex; flex-direction: column;
+  gap: var(--primitive-space-4); /* Figma: 11px (off-scale), rounded to space-4 */
+  padding-left: var(--primitive-space-6);
+}
+.snp-collapsed .snp-project-body { padding: 0 var(--primitive-space-2); }
+.snp-select { position: relative; padding: var(--primitive-space-2) 0; }
+.snp-select-btn {
+  box-sizing: border-box; width: 100%; height: 32px;
+  display: flex; align-items: center; justify-content: space-between; gap: var(--primitive-space-2);
+  padding: var(--primitive-space-3);
+  background: var(--color-surface-secondary);
+  border: 1px solid var(--primitive-color-neutral-300);
+  border-radius: var(--primitive-radius-xs);
+  font-family: inherit;
+  font-size: var(--font-body-small-size);
+  line-height: var(--font-body-small-line-height);
+  color: var(--color-text-primary);
+  text-align: left; cursor: pointer;
+}
+.snp-collapsed .snp-select-btn { justify-content: center; }
+.snp-select-val { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.snp-select-ico { width: 24px; height: 24px; flex-shrink: 0; }
+.snp-menu {
+  position: absolute; top: 100%; left: 0; right: 0; z-index: 10;
+  margin: var(--primitive-space-2) 0 0; padding: var(--primitive-space-2) 0;
+  background: var(--color-surface-secondary);
+  border: 1px solid var(--primitive-color-neutral-100);
+  border-radius: var(--primitive-radius-xs);
+  box-shadow: var(--shadow-regular-1);
+}
+.snp-menu-item {
+  padding: var(--primitive-space-3);
+  font-size: var(--font-body-small-size); line-height: var(--font-body-small-line-height);
+  color: var(--color-text-primary); cursor: pointer;
+}
+.snp-menu-item:hover { background: var(--color-surface-primary); }
+.snp-apps { display: flex; flex-direction: column; gap: var(--primitive-space-3); width: 188px; padding: var(--primitive-space-2) 0; }
+.snp-collapsed .snp-apps { width: auto; }
+.snp-app-btn {
+  box-sizing: border-box; width: 100%;
+  display: flex; align-items: center; gap: var(--primitive-space-3);
+  padding: var(--primitive-space-1) 0;
+  background: none; border: none; border-radius: var(--primitive-radius-s);
+  font-family: inherit;
+  font-size: var(--font-tag-1-size);
+  line-height: var(--font-body-small-line-height);
+  color: var(--color-text-primary);
+  text-align: left; cursor: pointer;
+}
+.snp-chip {
+  display: flex; flex-shrink: 0; padding: var(--primitive-space-2);
+  background: #eceeff; /* token-exempt: NEEDS TOKEN - app icon chip background, a literal in Figma */
+  border-radius: var(--primitive-radius-s);
+  color: var(--color-button-default);
+}
+.snp-app-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.snp-add {
+  box-sizing: border-box; width: 100%; height: 32px;
+  display: flex; align-items: center; justify-content: center; gap: var(--primitive-space-2);
+  padding: var(--primitive-space-3);
+  background: var(--color-surface-primary);
+  border: 1px dashed var(--primitive-color-neutral-200);
+  border-radius: var(--primitive-radius-xs);
+  font-family: inherit;
+  font-size: var(--font-body-small-size);
+  line-height: var(--font-body-small-line-height);
+  color: var(--color-text-label);
+  white-space: nowrap; overflow: hidden; cursor: pointer;
+}
+
+/* settings */
+.snp-settings { display: flex; flex-direction: column; gap: var(--primitive-space-2); }
+.snp-section-title { display: flex; align-items: center; gap: var(--primitive-space-4); padding: var(--primitive-space-3) var(--primitive-space-4); }
+.snp-collapsed .snp-section-title { padding-left: calc(var(--primitive-space-5) + var(--primitive-space-4)); }
+
+</style>
+</head>
+<body>
+<div class="page-layout">
+  <header class="shell-bar"><div class="shell-logo"><span class="logo-asint">AsInt</span><span class="logo-edge">edge</span></div><div class="shell-actions"><button type="button" class="shell-bell" aria-label="Notifications"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.7 21a2 2 0 0 1-3.4 0"></path></svg></button><button type="button" class="shell-profile" aria-label="Profile JD">JD</button></div></header>
+  <div class="page-layout-body">
+    <nav class="snp" aria-label="Main navigation"><!-- header: workspace label + collapse / expand control --><div class="snp-head"><span class="snp-bar" aria-hidden="true"></span><div class="snp-head-row"><span class="snp-title">Workspace</span><button type="button" class="snp-toggle" aria-label="Collapse navigation" aria-expanded="true"><span class="snp-toggle-box"><svg class="snp-toggle-ico" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 17l-5-5 5-5M18 17l-5-5 5-5"></path></svg></span></button></div></div><!-- main navigation --><ul class="snp-group"><li class="snp-row"><span class="snp-bar snp-bar-active" aria-hidden="true"></span><button type="button" class="snp-item snp-item-active" aria-current="page"><svg class="snp-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v14H4z"></path><path d="M4 10h16"></path><path d="M10 10v9"></path></svg><span class="snp-label">Overview</span><!--v-if--></button></li><li class="snp-row"><span class="snp-bar" aria-hidden="true"></span><button type="button" class="snp-item"><svg class="snp-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6v6H4z"></path><path d="M14 4h6v6h-6z"></path><path d="M4 14h6v6H4z"></path><path d="M14 14h6v6h-6z"></path></svg><span class="snp-label">Applications</span><svg class="snp-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></button></li><li class="snp-row"><span class="snp-bar" aria-hidden="true"></span><button type="button" class="snp-item"><svg class="snp-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h6l2 2h8v11H4z"></path></svg><span class="snp-label">Projects</span><svg class="snp-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></button></li><li class="snp-row"><span class="snp-bar" aria-hidden="true"></span><button type="button" class="snp-item"><svg class="snp-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8h12l-1 12H7z"></path><path d="M9 8V6a3 3 0 0 1 6 0v2"></path></svg><span class="snp-label">Marketplace</span><!--v-if--></button></li></ul><!-- current project --><section class="snp-project" aria-label="Current project"><div class="snp-project-head"><svg class="snp-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h6l2 2h8v11H4z"></path></svg><span class="snp-title">Current Project</span></div><div class="snp-project-body"><div class="snp-select"><button type="button" class="snp-select-btn" aria-haspopup="listbox" aria-expanded="false"><span class="snp-select-val">Pilot Project A</span><svg class="snp-select-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10l5 5 5-5"></path></svg></button><!--v-if--></div><ul class="snp-apps"><li><button type="button" class="snp-app-btn"><span class="snp-chip"><svg class="snp-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"></path></svg></span><span class="snp-app-label">Asset Centric Workbench</span></button></li><li><button type="button" class="snp-app-btn"><span class="snp-chip"><svg class="snp-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"></path><path d="M9 13h6"></path></svg></span><span class="snp-app-label">Asset Inspection</span></button></li><li><button type="button" class="snp-app-btn"><span class="snp-chip"><svg class="snp-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 16H3z"></path><path d="M12 10v4"></path></svg></span><span class="snp-app-label">Fitness For Service</span></button></li><li><button type="button" class="snp-app-btn"><span class="snp-chip"><svg class="snp-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4v16H5z"></path><path d="M11 4h4v16h-4z"></path><path d="M17 6l3 1-3 13-3-1z"></path></svg></span><span class="snp-app-label">Material Properties</span></button></li></ul><button type="button" class="snp-add"><svg class="snp-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg><span>Add app to project</span></button></div></section><!-- settings --><section class="snp-settings" aria-label="Settings"><div class="snp-section-title"><span class="snp-spacer" aria-hidden="true"></span><!-- Figma's collapsed state literally shows "s" here --><span class="snp-title">Settings</span></div><ul class="snp-group"><li class="snp-row"><span class="snp-bar" aria-hidden="true"></span><button type="button" class="snp-item"><svg class="snp-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path><path d="M4 21c0-4 4-6 8-6s8 2 8 6"></path></svg><span class="snp-label">Workspace Admin</span></button></li><li class="snp-row"><span class="snp-bar" aria-hidden="true"></span><button type="button" class="snp-item"><svg class="snp-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h2"></path><path d="M9 6h11"></path><path d="M4 12h2"></path><path d="M9 12h11"></path><path d="M4 18h2"></path><path d="M9 18h11"></path></svg><span class="snp-label">Customizations</span></button></li><li class="snp-row"><span class="snp-bar" aria-hidden="true"></span><button type="button" class="snp-item"><svg class="snp-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h14v18l-3-2-2 2-2-2-2 2-2-2-3 2z"></path><path d="M9 8h6"></path><path d="M9 12h6"></path></svg><span class="snp-label">Subscriptions/Billing</span></button></li><li class="snp-row"><span class="snp-bar" aria-hidden="true"></span><button type="button" class="snp-item"><svg class="snp-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 6 0l3-3a4 4 0 0 0-6-6l-1 1"></path><path d="M14 10a4 4 0 0 0-6 0l-3 3a4 4 0 0 0 6 6l1-1"></path></svg><span class="snp-label">Integrations</span></button></li><li class="snp-row"><span class="snp-bar" aria-hidden="true"></span><button type="button" class="snp-item"><svg class="snp-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13a8 8 0 0 1 16 0"></path><path d="M3 13h3v5H3z"></path><path d="M18 13h3v5h-3z"></path></svg><span class="snp-label">Help Center</span></button></li></ul></section></nav>
+    <main class="page-layout-container">
+      <div class="demo">
+        <h1>Page content goes here</h1>
+        <p>This white card is the page's single content container. The Template leaves it empty, so any padding shown here (24px) is a demo choice, not part of the design.</p>
+        <p>Try the double-chevron at the top of the sidebar to collapse it, click a navigation item, or open the project picker.</p>
+      </div>
+    </main>
+  </div>
+</div>
+<script>
+  var EXPANDED = "<nav class=\"snp\" aria-label=\"Main navigation\"><!-- header: workspace label + collapse / expand control --><div class=\"snp-head\"><span class=\"snp-bar\" aria-hidden=\"true\"></span><div class=\"snp-head-row\"><span class=\"snp-title\">Workspace</span><button type=\"button\" class=\"snp-toggle\" aria-label=\"Collapse navigation\" aria-expanded=\"true\"><span class=\"snp-toggle-box\"><svg class=\"snp-toggle-ico\" width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M11 17l-5-5 5-5M18 17l-5-5 5-5\"></path></svg></span></button></div></div><!-- main navigation --><ul class=\"snp-group\"><li class=\"snp-row\"><span class=\"snp-bar snp-bar-active\" aria-hidden=\"true\"></span><button type=\"button\" class=\"snp-item snp-item-active\" aria-current=\"page\"><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 5h16v14H4z\"></path><path d=\"M4 10h16\"></path><path d=\"M10 10v9\"></path></svg><span class=\"snp-label\">Overview</span><!--v-if--></button></li><li class=\"snp-row\"><span class=\"snp-bar\" aria-hidden=\"true\"></span><button type=\"button\" class=\"snp-item\"><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 4h6v6H4z\"></path><path d=\"M14 4h6v6h-6z\"></path><path d=\"M4 14h6v6H4z\"></path><path d=\"M14 14h6v6h-6z\"></path></svg><span class=\"snp-label\">Applications</span><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M9 6l6 6-6 6\"></path></svg></button></li><li class=\"snp-row\"><span class=\"snp-bar\" aria-hidden=\"true\"></span><button type=\"button\" class=\"snp-item\"><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 6h6l2 2h8v11H4z\"></path></svg><span class=\"snp-label\">Projects</span><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M9 6l6 6-6 6\"></path></svg></button></li><li class=\"snp-row\"><span class=\"snp-bar\" aria-hidden=\"true\"></span><button type=\"button\" class=\"snp-item\"><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M6 8h12l-1 12H7z\"></path><path d=\"M9 8V6a3 3 0 0 1 6 0v2\"></path></svg><span class=\"snp-label\">Marketplace</span><!--v-if--></button></li></ul><!-- current project --><section class=\"snp-project\" aria-label=\"Current project\"><div class=\"snp-project-head\"><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 6h6l2 2h8v11H4z\"></path></svg><span class=\"snp-title\">Current Project</span></div><div class=\"snp-project-body\"><div class=\"snp-select\"><button type=\"button\" class=\"snp-select-btn\" aria-haspopup=\"listbox\" aria-expanded=\"false\"><span class=\"snp-select-val\">Pilot Project A</span><svg class=\"snp-select-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M7 10l5 5 5-5\"></path></svg></button><!--v-if--></div><ul class=\"snp-apps\"><li><button type=\"button\" class=\"snp-app-btn\"><span class=\"snp-chip\"><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 3l8 4.5v9L12 21l-8-4.5v-9z\"></path></svg></span><span class=\"snp-app-label\">Asset Centric Workbench</span></button></li><li><button type=\"button\" class=\"snp-app-btn\"><span class=\"snp-chip\"><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M6 3h8l4 4v14H6z\"></path><path d=\"M9 13h6\"></path></svg></span><span class=\"snp-app-label\">Asset Inspection</span></button></li><li><button type=\"button\" class=\"snp-app-btn\"><span class=\"snp-chip\"><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 3l9 16H3z\"></path><path d=\"M12 10v4\"></path></svg></span><span class=\"snp-app-label\">Fitness For Service</span></button></li><li><button type=\"button\" class=\"snp-app-btn\"><span class=\"snp-chip\"><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 4h4v16H5z\"></path><path d=\"M11 4h4v16h-4z\"></path><path d=\"M17 6l3 1-3 13-3-1z\"></path></svg></span><span class=\"snp-app-label\">Material Properties</span></button></li></ul><button type=\"button\" class=\"snp-add\"><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" aria-hidden=\"true\"><path d=\"M12 5v14M5 12h14\"></path></svg><span>Add app to project</span></button></div></section><!-- settings --><section class=\"snp-settings\" aria-label=\"Settings\"><div class=\"snp-section-title\"><span class=\"snp-spacer\" aria-hidden=\"true\"></span><!-- Figma's collapsed state literally shows \"s\" here --><span class=\"snp-title\">Settings</span></div><ul class=\"snp-group\"><li class=\"snp-row\"><span class=\"snp-bar\" aria-hidden=\"true\"></span><button type=\"button\" class=\"snp-item\"><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z\"></path><path d=\"M4 21c0-4 4-6 8-6s8 2 8 6\"></path></svg><span class=\"snp-label\">Workspace Admin</span></button></li><li class=\"snp-row\"><span class=\"snp-bar\" aria-hidden=\"true\"></span><button type=\"button\" class=\"snp-item\"><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 6h2\"></path><path d=\"M9 6h11\"></path><path d=\"M4 12h2\"></path><path d=\"M9 12h11\"></path><path d=\"M4 18h2\"></path><path d=\"M9 18h11\"></path></svg><span class=\"snp-label\">Customizations</span></button></li><li class=\"snp-row\"><span class=\"snp-bar\" aria-hidden=\"true\"></span><button type=\"button\" class=\"snp-item\"><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 3h14v18l-3-2-2 2-2-2-2 2-2-2-3 2z\"></path><path d=\"M9 8h6\"></path><path d=\"M9 12h6\"></path></svg><span class=\"snp-label\">Subscriptions/Billing</span></button></li><li class=\"snp-row\"><span class=\"snp-bar\" aria-hidden=\"true\"></span><button type=\"button\" class=\"snp-item\"><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M10 14a4 4 0 0 0 6 0l3-3a4 4 0 0 0-6-6l-1 1\"></path><path d=\"M14 10a4 4 0 0 0-6 0l-3 3a4 4 0 0 0 6 6l1-1\"></path></svg><span class=\"snp-label\">Integrations</span></button></li><li class=\"snp-row\"><span class=\"snp-bar\" aria-hidden=\"true\"></span><button type=\"button\" class=\"snp-item\"><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 13a8 8 0 0 1 16 0\"></path><path d=\"M3 13h3v5H3z\"></path><path d=\"M18 13h3v5h-3z\"></path></svg><span class=\"snp-label\">Help Center</span></button></li></ul></section></nav>";
+  var COLLAPSED = "<nav class=\"snp snp-collapsed\" aria-label=\"Main navigation\"><!-- header: workspace label + collapse / expand control --><div class=\"snp-head\"><!--v-if--><div class=\"snp-head-row\"><!--v-if--><button type=\"button\" class=\"snp-toggle\" aria-label=\"Expand navigation\" aria-expanded=\"false\"><span class=\"snp-toggle-box\"><svg class=\"snp-toggle-ico flip\" width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M11 17l-5-5 5-5M18 17l-5-5 5-5\"></path></svg></span></button></div></div><!-- main navigation --><ul class=\"snp-group\"><li class=\"snp-row\"><span class=\"snp-bar snp-bar-active\" aria-hidden=\"true\"></span><button type=\"button\" class=\"snp-item snp-item-active\" aria-current=\"page\" aria-label=\"Overview\"><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 5h16v14H4z\"></path><path d=\"M4 10h16\"></path><path d=\"M10 10v9\"></path></svg><!--v-if--><!--v-if--></button></li><li class=\"snp-row\"><span class=\"snp-bar\" aria-hidden=\"true\"></span><button type=\"button\" class=\"snp-item\" aria-label=\"Applications\"><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 4h6v6H4z\"></path><path d=\"M14 4h6v6h-6z\"></path><path d=\"M4 14h6v6H4z\"></path><path d=\"M14 14h6v6h-6z\"></path></svg><!--v-if--><!--v-if--></button></li><li class=\"snp-row\"><span class=\"snp-bar\" aria-hidden=\"true\"></span><button type=\"button\" class=\"snp-item\" aria-label=\"Projects\"><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 6h6l2 2h8v11H4z\"></path></svg><!--v-if--><!--v-if--></button></li><li class=\"snp-row\"><span class=\"snp-bar\" aria-hidden=\"true\"></span><button type=\"button\" class=\"snp-item\" aria-label=\"Marketplace\"><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M6 8h12l-1 12H7z\"></path><path d=\"M9 8V6a3 3 0 0 1 6 0v2\"></path></svg><!--v-if--><!--v-if--></button></li></ul><!-- current project --><section class=\"snp-project\" aria-label=\"Current project\"><div class=\"snp-project-head\"><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 6h6l2 2h8v11H4z\"></path></svg><!--v-if--></div><div class=\"snp-project-body\"><div class=\"snp-select\"><button type=\"button\" class=\"snp-select-btn\" aria-haspopup=\"listbox\" aria-expanded=\"false\" aria-label=\"Current project: Pilot Project A\"><!--v-if--><svg class=\"snp-select-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M7 10l5 5 5-5\"></path></svg></button><!--v-if--></div><ul class=\"snp-apps\"><li><button type=\"button\" class=\"snp-app-btn\" aria-label=\"Asset Centric Workbench\"><span class=\"snp-chip\"><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 3l8 4.5v9L12 21l-8-4.5v-9z\"></path></svg></span><!--v-if--></button></li><li><button type=\"button\" class=\"snp-app-btn\" aria-label=\"Asset Inspection\"><span class=\"snp-chip\"><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M6 3h8l4 4v14H6z\"></path><path d=\"M9 13h6\"></path></svg></span><!--v-if--></button></li><li><button type=\"button\" class=\"snp-app-btn\" aria-label=\"Fitness For Service\"><span class=\"snp-chip\"><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 3l9 16H3z\"></path><path d=\"M12 10v4\"></path></svg></span><!--v-if--></button></li><li><button type=\"button\" class=\"snp-app-btn\" aria-label=\"Material Properties\"><span class=\"snp-chip\"><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 4h4v16H5z\"></path><path d=\"M11 4h4v16h-4z\"></path><path d=\"M17 6l3 1-3 13-3-1z\"></path></svg></span><!--v-if--></button></li></ul><button type=\"button\" class=\"snp-add\" aria-label=\"Add app to project\"><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" aria-hidden=\"true\"><path d=\"M12 5v14M5 12h14\"></path></svg><!--v-if--></button></div></section><!-- settings --><section class=\"snp-settings\" aria-label=\"Settings\"><div class=\"snp-section-title\"><!--v-if--><!-- Figma's collapsed state literally shows \"s\" here --><span class=\"snp-title\">S</span></div><ul class=\"snp-group\"><li class=\"snp-row\"><span class=\"snp-bar\" aria-hidden=\"true\"></span><button type=\"button\" class=\"snp-item\" aria-label=\"Workspace Admin\"><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z\"></path><path d=\"M4 21c0-4 4-6 8-6s8 2 8 6\"></path></svg><!--v-if--></button></li><li class=\"snp-row\"><span class=\"snp-bar\" aria-hidden=\"true\"></span><button type=\"button\" class=\"snp-item\" aria-label=\"Customizations\"><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 6h2\"></path><path d=\"M9 6h11\"></path><path d=\"M4 12h2\"></path><path d=\"M9 12h11\"></path><path d=\"M4 18h2\"></path><path d=\"M9 18h11\"></path></svg><!--v-if--></button></li><li class=\"snp-row\"><span class=\"snp-bar\" aria-hidden=\"true\"></span><button type=\"button\" class=\"snp-item\" aria-label=\"Subscriptions/Billing\"><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 3h14v18l-3-2-2 2-2-2-2 2-2-2-3 2z\"></path><path d=\"M9 8h6\"></path><path d=\"M9 12h6\"></path></svg><!--v-if--></button></li><li class=\"snp-row\"><span class=\"snp-bar\" aria-hidden=\"true\"></span><button type=\"button\" class=\"snp-item\" aria-label=\"Integrations\"><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M10 14a4 4 0 0 0 6 0l3-3a4 4 0 0 0-6-6l-1 1\"></path><path d=\"M14 10a4 4 0 0 0-6 0l-3 3a4 4 0 0 0 6 6l1-1\"></path></svg><!--v-if--></button></li><li class=\"snp-row\"><span class=\"snp-bar\" aria-hidden=\"true\"></span><button type=\"button\" class=\"snp-item\" aria-label=\"Help Center\"><svg class=\"snp-ico\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 13a8 8 0 0 1 16 0\"></path><path d=\"M3 13h3v5H3z\"></path><path d=\"M18 13h3v5h-3z\"></path></svg><!--v-if--></button></li></ul></section></nav>";
+  var PROJECTS = ['Pilot Project A'];
+  var active = 'Overview';
+
+  function nav() { return document.querySelector('.snp'); }
+  function isCollapsed() { return nav().classList.contains('snp-collapsed'); }
+  function labelOf(btn) { return btn.getAttribute('aria-label') || btn.textContent.trim(); }
+  function applyActive() {
+    document.querySelectorAll('.snp-item, .snp-app-btn').forEach(function (b) {
+      var on = labelOf(b) === active || (b.querySelector('.snp-label, .snp-app-label') && b.querySelector('.snp-label, .snp-app-label').textContent.trim() === active);
+      if (on) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
+      b.classList.toggle('snp-item-active', on && b.classList.contains('snp-item'));
+      var bar = b.parentElement.querySelector('.snp-bar'); if (bar) bar.classList.toggle('snp-bar-active', on && b.classList.contains('snp-item'));
+    });
+  }
+  function closeMenu() { var m = document.querySelector('.snp-menu'); if (m) m.remove(); var b = document.querySelector('.snp-select-btn'); if (b) b.setAttribute('aria-expanded', 'false'); }
+
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    var tog = t.closest('.snp-toggle');
+    if (tog) { var next = isCollapsed() ? EXPANDED : COLLAPSED; nav().outerHTML = next; applyActive(); return; }
+    var item = t.closest('.snp-item, .snp-app-btn');
+    if (item) { active = labelOf(item); if (item.querySelector('.snp-label, .snp-app-label')) active = item.querySelector('.snp-label, .snp-app-label').textContent.trim(); applyActive(); return; }
+    var sel = t.closest('.snp-select-btn');
+    if (sel) {
+      var existing = document.querySelector('.snp-menu');
+      if (existing) { closeMenu(); return; }
+      if (isCollapsed()) return;
+      var ul = document.createElement('ul'); ul.className = 'snp-menu'; ul.setAttribute('role', 'listbox');
+      PROJECTS.forEach(function (p) { var li = document.createElement('li'); li.className = 'snp-menu-item'; li.setAttribute('role', 'option'); li.textContent = p; ul.appendChild(li); });
+      sel.parentElement.appendChild(ul); sel.setAttribute('aria-expanded', 'true'); return;
+    }
+    var opt = t.closest('.snp-menu-item');
+    if (opt) { document.querySelector('.snp-select-val').textContent = opt.textContent; closeMenu(); return; }
+    closeMenu();
+  });
+</script>
+</body>
+</html>

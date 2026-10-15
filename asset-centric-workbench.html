@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Asset Centric Workbench — Standard FFS view</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+ * Built from the live Figma frame "9. Standard FFS view"
+ * (file O1L39CeZsNghNYsil1RlJr, node 2206:28058). Layout positions came
+ * from get_metadata; styling from get_design_context on the list header,
+ * the Asset Hierarchy panel, the details header, the toolbar and the form.
+ * Standalone page: the token subset below mirrors tokens.css.
+ * ===================================================================== */
+:root {
+  --primitive-color-blue-10: #020631;
+  --primitive-color-blue-50: #4353ff;
+  --primitive-color-bg-card: #ffffff;
+  --primitive-color-bg-page: #f9f9fc;
+  --primitive-color-neutral-100: #e5e7ef;
+  --primitive-color-neutral-200: #c4cbdd;
+  --primitive-color-neutral-300: #9ca5be;
+  --primitive-color-neutral-400: #68769c;
+  --primitive-color-neutral-600: #47506a;
+  --primitive-color-semantic-bg-blue: #e9f2ff;
+  --primitive-color-semantic-bg-green: #dcfff1;
+  --primitive-color-semantic-text-green: #008516;
+  --primitive-color-semantic-text-blue: #0055d4;
+  --primitive-color-semantic-element-grey: #9ca5be;
+  --primitive-color-indicator-accent-1: #aeb5ff;
+  --primitive-color-indicator-accent-2: #7eb9ff;
+  --primitive-color-indicator-accent-7: #0075ff;
+  --gradient-app-tile: linear-gradient(180deg, #4353ff 0%, #8528f8 100%);
+  --gradient-illustration-general: linear-gradient(135deg, #4353ff 0%, #6975ff 100%);
+
+  --color-text-primary: var(--primitive-color-blue-10);
+  --color-text-label: var(--primitive-color-neutral-600);
+  --color-text-large-text: var(--primitive-color-neutral-400);
+  --color-text-link: var(--primitive-color-semantic-text-blue);
+  --color-surface-primary: var(--primitive-color-bg-page);
+  --color-surface-secondary: var(--primitive-color-bg-card);
+  --color-button-default: var(--primitive-color-blue-50);
+  --font-family-body: "Poppins", sans-serif;
+
+  --shadow-regular-1: 2px 4px 8px rgba(104, 118, 156, 0.08);
+  --shadow-regular-3: 2px 4px 12px rgba(104, 118, 156, 0.24);
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--font-family-body); background: var(--color-surface-primary); color: var(--color-text-primary); }
+button { font-family: inherit; }
+.app { display: flex; min-height: 100vh; }
+
+/* Side Navigation Panel — the 108px instance used in this frame */
+.sidenav { width: 108px; flex-shrink: 0; background: var(--primitive-color-blue-10); padding: 32px 24px; display: flex; flex-direction: column; justify-content: space-between; align-items: center; position: sticky; top: 0; height: 100vh; }
+.sidenav-top { display: flex; flex-direction: column; align-items: center; gap: 48px; width: 100%; }
+.logo-row { position: relative; width: 100%; height: 48px; display: flex; align-items: center; justify-content: center; }
+.logo { width: 60px; height: 49px; color: #fff; font-weight: 700; font-size: 28px; display: flex; align-items: center; justify-content: center; } /* token-exempt: prototype */
+.collapse-btn { position: absolute; left: 71.5px; top: 0; min-width: 44px; min-height: 44px; padding: 10px; background: var(--color-surface-secondary); border: 1px solid var(--primitive-color-blue-10); border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--primitive-color-blue-10); z-index: 6; }
+.nav-list { display: flex; flex-direction: column; gap: 16px; width: 54px; }
+.nav-item { display: flex; align-items: center; justify-content: center; padding: 12px; border-radius: 8px; background: none; border: none; color: #fff; cursor: pointer; } /* token-exempt: prototype */
+.nav-item:hover { background: rgba(255,255,255,0.1); }
+
+.main { flex: 1; min-width: 0; padding: 16px 0 40px 24px; display: flex; flex-direction: column; gap: 16px; }
+
+/* ---------- List Page Header ---------- */
+.lph { display: flex; flex-direction: column; gap: 16px; }
+.lph-top { display: flex; flex-direction: column; gap: 24px; }
+.shell { display: flex; justify-content: flex-end; padding: 0 40px; }
+.shell-in { display: flex; align-items: center; gap: 25px; }
+.search-bar { display: flex; align-items: center; gap: 8px; height: 40px; width: 358px; max-width: 100%; padding: 8px 12px; background: var(--color-surface-secondary); border: 1px solid var(--primitive-color-neutral-400); border-radius: 10px; color: var(--color-text-label); }
+.search-bar input { flex: 1; min-width: 0; border: none; outline: none; background: transparent; font: 400 16px/24px var(--font-family-body); color: var(--color-text-primary); }
+.search-bar input::placeholder { color: var(--color-text-label); opacity: 1; }
+.search-bar:focus-within { box-shadow: 0 0 0 2px var(--primitive-color-neutral-200); }
+.lang { display: flex; align-items: center; gap: 8px; height: 40px; font-size: 16px; line-height: 24px; color: #000; } /* token-exempt: Figma uses literal black */
+.icon-plain { display: flex; background: none; border: none; color: var(--color-text-primary); padding: 0; cursor: pointer; }
+.profile { width: 48px; height: 48px; border-radius: 24px; background: var(--color-button-default); border: 1px solid var(--primitive-color-neutral-300); overflow: hidden; position: relative; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 600; } /* token-exempt: prototype */
+.profile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.title-row { display: flex; align-items: center; justify-content: space-between; padding-right: 40px; gap: 16px; flex-wrap: wrap; }
+.title-left { display: flex; align-items: center; gap: 8px; }
+.a360 { width: 40px; height: 40px; border-radius: 10px; background: var(--gradient-illustration-general); display: flex; align-items: center; justify-content: center; color: #fff; } /* token-exempt: prototype */
+.page-title { margin: 0; font-size: 24px; line-height: 30px; font-weight: 700; }       /* Header 5 */
+.segmented { display: flex; isolation: isolate; }
+.seg { min-width: 44px; min-height: 44px; width: 44px; background: var(--color-surface-secondary); border: 1px solid var(--primitive-color-neutral-300); display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--color-button-default); padding: 8px; }
+.seg:first-child { border-radius: 8px 0 0 8px; margin-right: -1px; }
+.seg:last-child { border-radius: 0 8px 8px 0; }
+.seg[aria-pressed="true"] { border-color: var(--color-button-default); z-index: 2; position: relative; }
+
+/* tab bars (shared by header and detail pane) */
+.tabbar { display: flex; height: 40px; background: var(--color-surface-primary); border-bottom: 1px solid var(--primitive-color-neutral-100); }
+.tab { display: flex; align-items: center; height: 40px; padding: 8px 16px; background: var(--color-surface-primary); border: none; border-bottom: 2px solid var(--primitive-color-neutral-100); color: var(--color-text-primary); font: 400 16px/24px var(--font-family-body); cursor: pointer; white-space: nowrap; }
+.tab[aria-selected="true"] { background: var(--color-surface-secondary); border-bottom-color: var(--color-button-default); color: var(--color-button-default); padding: 8px 10px; }
+.tab:focus-visible { outline: 2px solid var(--primitive-color-neutral-300); outline-offset: -2px; }
+
+/* ---------- body: master + detail ---------- */
+.body { position: relative; display: flex; gap: 20px; align-items: flex-start; padding-right: 39px; }
+.master { width: 393px; flex-shrink: 0; background: var(--color-surface-secondary); border: 1px solid var(--primitive-color-neutral-100); border-radius: 20px; padding: 16px 0 24px; overflow: hidden; }
+.m-head { display: flex; align-items: center; justify-content: space-between; padding: 0 16px; }
+.m-head h2 { margin: 0; font-size: 20px; line-height: 24px; font-weight: 600; }  /* Sub Header 1 */
+.m-tog { display: flex; gap: 8px; }
+.m-tog button { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: var(--color-surface-secondary); border: 1px solid var(--color-button-default); border-radius: 6px; color: var(--color-button-default); cursor: pointer; }
+.m-search { padding: 16px; }
+.m-search .search-bar { width: 269px; border-radius: 12px; }
+.node { display: flex; align-items: center; gap: 8px; padding: 0 16px; font-size: 16px; line-height: 24px; cursor: pointer; background: none; border: none; width: 100%; text-align: left; color: var(--color-text-primary); }
+.node.parent { height: 52px; border-top: 1px solid var(--primitive-color-neutral-200); border-bottom: 1px solid var(--primitive-color-neutral-200); font-weight: 600; }  /* Sub Header 2 */
+.node.child { height: 40px; }
+.node.unit { height: 40px; border-bottom: 1px solid var(--primitive-color-neutral-100); }
+.chev { color: var(--primitive-color-neutral-600); flex-shrink: 0; display: block; }
+.pill { display: inline-block; background: var(--primitive-color-semantic-bg-blue); border: 1px solid var(--primitive-color-indicator-accent-7); color: var(--color-button-default); font-size: 12px; line-height: 18px; padding: 3px 8px; border-radius: 20px; font-weight: 400; }
+.tblwrap { overflow-x: auto; position: relative; }
+table.tree { border-collapse: collapse; table-layout: fixed; width: 1518px; }
+.tree th { height: 52px; padding: 0 16px; text-align: left; white-space: nowrap; background: var(--color-surface-primary); border-bottom: 1px solid var(--primitive-color-neutral-200); font: 600 16px/20px var(--font-family-body); color: var(--color-text-large-text); }   /* Sub Header 2 */
+.tree th .sort { vertical-align: middle; margin-left: 8px; }
+.tree td { height: 36px; padding: 0 16px; border-bottom: 1px solid var(--primitive-color-neutral-100); font-size: 14px; line-height: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }  /* Body Small */
+.tree tbody tr:hover td { background: var(--color-surface-primary); }
+.tree tr.static:hover td { background: none; }
+.c1 { display: flex; align-items: center; gap: 8px; }
+.cell { display: flex; align-items: center; gap: 8px; }
+.av { width: 28px; height: 28px; border-radius: 14px; background: var(--color-button-default); border: 1px solid var(--primitive-color-neutral-300); color: #fff; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; } /* token-exempt: Figma thumbnail text is literal white */
+.grp { display: flex; align-items: center; gap: 8px; }
+.nested { padding: 0 0 0 46px; }
+.nested table { border-collapse: collapse; table-layout: fixed; width: 860px; }
+.nested th { height: 36px; font-size: 14px; line-height: 20px; border-bottom: 1px solid var(--primitive-color-neutral-200); }
+.nested td { height: 36px; }
+.cnt { position: relative; display: inline-block; width: 24px; height: 24px; flex-shrink: 0; }
+.cnt svg { position: absolute; left: 3px; top: 3px; }
+.cnt b { position: absolute; right: 0; top: -2px; font-size: 12px; line-height: 16px; font-weight: 400; background: var(--gradient-app-tile); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lnk { color: var(--color-text-link); text-decoration: none; overflow: hidden; text-overflow: ellipsis; }
+.tag-green { display: inline-block; background: var(--primitive-color-semantic-bg-green); color: var(--primitive-color-semantic-text-green); font-size: 12px; line-height: 18px; padding: 3px 8px; border-radius: 20px; }
+.scroll-btn { position: absolute; left: 383px; top: 316px; z-index: 5; width: 44px; height: 44px; background: var(--color-surface-secondary); border: 1px solid var(--color-button-default); border-radius: 8px; color: var(--color-button-default); display: flex; align-items: center; justify-content: center; cursor: pointer; }
+
+/* ---------- detail pane (1148 wide in the design) ---------- */
+.detail { flex: 1; min-width: 560px; max-width: 1148px; display: flex; flex-direction: column; gap: 24px; }
+.d-head { display: flex; flex-direction: column; }
+.d-title { display: flex; align-items: center; gap: 8px; height: 48px; }
+.d-title .ico { width: 32px; height: 32px; border-radius: 8px; background: var(--gradient-illustration-general); display: flex; align-items: center; justify-content: center; color: #fff; } /* token-exempt: prototype */
+.d-title h2 { margin: 0; font-size: 20px; line-height: 24px; font-weight: 600; }  /* Sub Header 1 */
+.toolbar { margin-top: 16px; height: 56px; background: var(--color-surface-secondary); border-radius: 8px; box-shadow: var(--shadow-regular-3); padding: 5px 8px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.tb-right { display: flex; align-items: center; gap: 8px; }
+.btn-tert { display: inline-flex; align-items: center; justify-content: center; gap: 4px; height: 40px; min-width: 48px; padding: 8px 12px; background: none; border: none; border-radius: 8px; color: var(--color-button-default); font: 600 16px/24px var(--font-family-body); cursor: pointer; }
+.btn-tert:hover { background: var(--primitive-color-semantic-bg-blue); }
+.btn-sec-lg { display: inline-flex; align-items: center; gap: 8px; height: 46px; padding: 8px 12px; background: var(--color-surface-secondary); color: var(--color-button-default); border: 1px solid var(--color-button-default); border-radius: 8px; font: 600 20px/30px var(--font-family-body); cursor: pointer; }
+.btn-sec-lg:hover { background: var(--primitive-color-semantic-bg-blue); }
+.sep { width: 16px; height: 40px; display: flex; justify-content: center; align-items: center; }
+.sep i { width: 1px; height: 26px; background: var(--primitive-color-neutral-200); display: block; }
+.entity { margin-top: 16px; position: relative; height: 127px; background: var(--color-surface-secondary); border: 1px solid var(--primitive-color-neutral-100); border-radius: 20px; padding: 16px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.e-left { display: flex; align-items: center; gap: 16px; }
+.e-photo { width: 95px; height: 95px; border-radius: 12px; overflow: hidden; background: linear-gradient(135deg, #b8452f, #7a2a1c); flex-shrink: 0; } /* token-exempt: image placeholder */
+.e-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.e-title { margin: 0; font-size: 24px; line-height: 30px; font-weight: 700; }
+.e-sub { margin: 8px 0 0; font-size: 14px; line-height: 20px; color: var(--color-text-label); }
+.e-cards { display: flex; gap: 26px; padding-right: 16px; }
+.hic { width: 180px; background: var(--color-surface-primary); border-left: 4px solid; border-radius: 7px; box-shadow: var(--shadow-regular-1); padding: 9px 8px; display: flex; flex-direction: column; gap: 4px; min-height: 62px; }
+.hic .k { font-size: 14px; line-height: 20px; color: var(--color-text-label); }
+.hic .v { font-size: 16px; line-height: 24px; }
+.hic .v.link { font-size: 14px; line-height: 20px; font-style: italic; color: var(--color-text-link); text-decoration: none; }
+.e-collapse { position: absolute; top: 8px; right: 8px; width: 32px; height: 24px; display: flex; align-items: center; justify-content: center; background: none; border: none; border-radius: 6px; color: var(--color-button-default); cursor: pointer; padding: 0; }
+.e-collapse:hover { background: var(--primitive-color-semantic-bg-blue); }
+.d-tabs { margin-top: 16px; }
+
+.form-card { background: var(--color-surface-secondary); border: 1px solid var(--primitive-color-neutral-100); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; align-items: flex-end; gap: 24px; min-height: 349px; }
+.f-actions { display: flex; gap: 16px; }
+.f-fields { width: 100%; display: flex; flex-direction: column; gap: 64px; }
+.f-row { display: flex; gap: 64px; flex-wrap: wrap; }
+.field { width: 420px; max-width: 100%; display: flex; flex-direction: column; gap: 1px; position: relative; }
+.f-label { font-size: 14px; line-height: 20px; color: var(--color-text-label); }
+.f-box { display: flex; align-items: center; justify-content: space-between; gap: 6px; min-height: 42px; background: var(--color-surface-secondary); border: 1px solid var(--primitive-color-neutral-300); border-radius: 4px; padding: 12px 8px; font: 400 14px/20px var(--font-family-body); width: 100%; text-align: left; color: var(--color-text-primary); }
+input.f-box::placeholder, .f-box .ph { color: var(--primitive-color-neutral-300); opacity: 1; }
+.f-box:focus-visible, input.f-box:focus { outline: none; box-shadow: 0 0 0 2px var(--primitive-color-indicator-accent-1); }
+button.f-box { cursor: pointer; }
+.menu { position: absolute; top: 100%; left: 0; right: 0; margin: 4px 0 0; padding: 4px 0; list-style: none; background: var(--color-surface-secondary); border: 1px solid var(--primitive-color-neutral-100); border-radius: 4px; box-shadow: var(--shadow-regular-1); z-index: 10; }
+.menu[hidden] { display: none; }
+.menu li { padding: 8px; font-size: 14px; line-height: 20px; cursor: pointer; }
+.menu li:hover { background: var(--color-surface-primary); }
+
+@media (max-width: 1100px) { .body { flex-direction: column; } .master { width: 100%; } .scroll-btn { display: none; } .detail { min-width: 0; width: 100%; } }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <aside class="sidenav">
+    <div class="sidenav-top">
+      <div class="logo-row">
+        <div class="logo">A</div>
+        <button class="collapse-btn" aria-label="Expand navigation"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
+      <nav class="nav-list" aria-label="Primary">
+        <button class="nav-item" aria-label="Dashboard"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l6 3"/></svg></button>
+        <button class="nav-item" aria-label="Apps"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="5" r="1.8"/><circle cx="12" cy="5" r="1.8"/><circle cx="19" cy="5" r="1.8"/><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/><circle cx="5" cy="19" r="1.8"/><circle cx="12" cy="19" r="1.8"/><circle cx="19" cy="19" r="1.8"/></svg></button>
+        <button class="nav-item" aria-label="Shopping bag"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></button>
+        <button class="nav-item" aria-label="Support"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 13a8 8 0 0 1 16 0"/><rect x="3" y="13" width="4" height="6" rx="1"/><rect x="17" y="13" width="4" height="6" rx="1"/></svg></button>
+        <button class="nav-item" aria-label="Settings"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1 1.55V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1-1.55 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.55-1H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.55V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9a1.7 1.7 0 0 0 1.55 1H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.55 1z"/></svg></button>
+      </nav>
+    </div>
+    <button class="nav-item" aria-label="Log out"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg></button>
+  </aside>
+
+  <div class="main">
+    <!-- ================= List Page Header ================= -->
+    <header class="lph">
+      <div class="lph-top">
+        <div class="shell"><div class="shell-in">
+          <label class="search-bar"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><input type="search" placeholder="Search" aria-label="Global search"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4"/></svg></label>
+          <div class="lang"><svg width="24" height="24" viewBox="0 0 24 24"><clipPath id="fc"><circle cx="12" cy="12" r="10"/></clipPath><g clip-path="url(#fc)"><rect width="24" height="24" fill="#fff"/><g fill="#d60000"><rect y="2" width="24" height="2.2"/><rect y="6.4" width="24" height="2.2"/><rect y="10.8" width="24" height="2.2"/><rect y="15.2" width="24" height="2.2"/><rect y="19.6" width="24" height="2.2"/></g><rect width="12" height="12.4" fill="#2a3a8c"/></g></svg>EN<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 10l5 5 5-5"/></svg></div>
+          <div style="display:flex;align-items:center;gap:24px"><button class="icon-plain" aria-label="Notifications"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+          <div class="profile" title="Profile">JD<img alt="" src="https://www.figma.com/api/mcp/asset/64814b59-8cd6-4cc2-b8cb-aab792673a0e/02a2f.png" onerror="this.remove()"></div></div>
+        </div></div>
+        <div class="title-row">
+          <div class="title-left"><div class="a360" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></div><h1 class="page-title">Asset Centric Workbench</h1></div>
+          <div class="segmented" role="group" aria-label="View">
+            <button class="seg" aria-pressed="true" aria-label="List view"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg></button>
+            <button class="seg" aria-pressed="false" aria-label="Analytics view"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 13v-3M12 13V8M16 13v-5M8 21h8M12 17v4"/></svg></button>
+          </div>
+        </div>
+      </div>
+      <div class="tabbar" role="tablist" data-tabs>
+        <button class="tab" role="tab" aria-selected="true">Tab Label</button>
+        <button class="tab" role="tab" aria-selected="false">Corrosion Loops</button>
+        <button class="tab" role="tab" aria-selected="false">Inventory Groups</button>
+        <button class="tab" role="tab" aria-selected="false">Systems</button>
+      </div>
+    </header>
+
+    <!-- ================= master + detail ================= -->
+    <div class="body">
+      <!-- Asset Hierarchy -->
+      <aside class="master" aria-labelledby="mh">
+        <div class="m-head">
+          <h2 id="mh">Asset Hierarchy</h2>
+          <div class="m-tog">
+            <button aria-label="Standard view"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h10M4 18h16"/></svg></button>
+            <button aria-label="Expand all"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+          </div>
+        </div>
+        <div class="m-search"><label class="search-bar"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><input type="search" id="mq" placeholder="Search" aria-label="Search hierarchy"></label></div>
+
+        <button class="node parent" data-toggle="unit-body" aria-expanded="true"><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="color:var(--color-button-default)"><rect x="6" y="3" width="12" height="18" rx="6"/><path d="M6 9h12M6 15h12"/></svg>Crude Unit</button>
+        <div id="unit-body">
+          <button class="node child" data-toggle="tree-body" aria-expanded="true"><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg>Preheat Unit <span class="pill">30</span></button>
+          <div id="tree-body" class="tblwrap" tabindex="0" aria-label="Equipment table, scrolls horizontally">
+            <table class="tree">
+              <colgroup><col style="width:160px"><col style="width:250px"><col style="width:174px"><col style="width:200px"><col style="width:161px"><col style="width:268px"><col style="width:251px"><col style="width:54px"></colgroup>
+              <thead><tr>
+                <th scope="col">Sort Field <svg class="sort" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 20V5M5 8l3-3 3 3M16 4v15M13 16l3 3 3-3"/></svg></th>
+                <th scope="col">Description <svg class="sort" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 20V5M5 8l3-3 3 3M16 4v15M13 16l3 3 3-3"/></svg></th>
+                <th scope="col">Equipment ID <svg class="sort" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 20V5M5 8l3-3 3 3M16 4v15M13 16l3 3 3-3"/></svg></th>
+                <th scope="col">Category <svg class="sort" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 20V5M5 8l3-3 3 3M16 4v15M13 16l3 3 3-3"/></svg></th>
+                <th scope="col">Object Type <svg class="sort" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 20V5M5 8l3-3 3 3M16 4v15M13 16l3 3 3-3"/></svg></th>
+                <th scope="col">Created By/On <svg class="sort" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 20V5M5 8l3-3 3 3M16 4v15M13 16l3 3 3-3"/></svg></th>
+                <th scope="col">Modified By/On <svg class="sort" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 20V5M5 8l3-3 3 3M16 4v15M13 16l3 3 3-3"/></svg></th>
+                <th></th>
+              </tr></thead>
+              <tbody id="rows"></tbody>
+            </table>
+          </div>
+          <div id="units"></div>
+        </div>
+      </aside>
+
+      <!-- Scroll control (44px) on the panel edge: scrolls the clipped table -->
+      <button class="scroll-btn" id="scrollBtn" aria-label="Scroll table columns"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg></button>
+
+      <!-- Details -->
+      <section class="detail" aria-label="Assessment details">
+        <div class="d-head">
+          <div class="d-title"><div class="ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l9 16H3L12 3z"/><path d="M12 10v4M12 17h.01"/></svg></div><h2>Fitness For Service Assessments</h2></div>
+
+          <div class="toolbar" role="toolbar" aria-label="Assessment actions">
+            <button class="btn-tert" aria-label="Back"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <div class="tb-right">
+              <button class="btn-tert" aria-label="Attachment"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 11.5l-8.5 8.5a5 5 0 0 1-7-7L14 4.5a3.3 3.3 0 0 1 4.7 4.7L10.2 17.7a1.7 1.7 0 0 1-2.4-2.4L15 8"/></svg></button>
+              <button class="btn-tert" aria-label="Report download"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5z"/><path d="M14 3v5h5"/><path d="M12 11v6m0 0l-2.5-2.5M12 17l2.5-2.5"/></svg></button>
+              <button class="btn-tert" aria-label="Timeline"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></button>
+              <button class="btn-sec-lg" id="statusBtn" aria-haspopup="listbox">In Process <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 10l5 5 5-5"/></svg></button>
+              <div class="sep" aria-hidden="true"><i></i></div>
+              <button class="btn-tert" aria-label="Delete"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg></button>
+              <button class="btn-tert" aria-label="Edit"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></button>
+            </div>
+          </div>
+
+          <div class="entity">
+            <div class="e-left">
+              <div class="e-photo"><img alt="FFSA.108 equipment" src="https://www.figma.com/api/mcp/asset/ea391583-be8a-4f53-bbd0-44eddd1a81a5/b6a96.png" onerror="this.remove()"></div>
+              <div><h3 class="e-title">FFSA.108</h3><p class="e-sub">Local External Corrosion</p></div>
+            </div>
+            <div class="e-cards">
+              <div class="hic" style="border-left-color:var(--primitive-color-indicator-accent-1)"><span class="k">Assessment Model:</span><span class="v">API 579/ASME FFS</span></div>
+              <div class="hic" style="border-left-color:var(--primitive-color-indicator-accent-2)"><span class="k">Asset Inspection:</span><a href="#" class="v link">INSP.002</a></div>
+              <div class="hic" style="border-left-color:var(--primitive-color-semantic-element-grey)"><span class="k">Finding:</span><a href="#" class="v link">PMFI.001</a></div>
+            </div>
+            <button class="e-collapse" aria-label="Collapse header"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 15l6-6 6 6"/></svg></button>
+          </div>
+
+          <div class="tabbar d-tabs" role="tablist" data-tabs>
+            <button class="tab" role="tab" aria-selected="true">Tab Label</button>
+            <button class="tab" role="tab" aria-selected="false">Prescreening</button>
+            <button class="tab" role="tab" aria-selected="false">Assessment Details</button>
+            <button class="tab" role="tab" aria-selected="false">Thickness Profile</button>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <div class="f-actions">
+            <button class="btn-tert">Add Role</button><button class="btn-tert">Save</button><button class="btn-tert">Cancel</button>
+          </div>
+          <div class="f-fields">
+            <div class="field"><label class="f-label" for="desc">Description:</label><input class="f-box" id="desc" type="text" placeholder="Text"></div>
+            <div class="f-row">
+              <div class="field" data-select><span class="f-label" id="l1">Operator:</span><button type="button" class="f-box" aria-labelledby="l1" aria-haspopup="listbox" aria-expanded="false"><span class="ph val">Select Values</span><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 10l5 5 5-5"/></svg></button><ul class="menu" role="listbox" hidden><li role="option">Option 1</li><li role="option">Option 2</li><li role="option">Option 3</li></ul></div>
+              <div class="field" data-select><span class="f-label" id="l2">Maintenance Supervisor:</span><button type="button" class="f-box" aria-labelledby="l2" aria-haspopup="listbox" aria-expanded="false"><span class="ph val">Select Values</span><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 10l5 5 5-5"/></svg></button><ul class="menu" role="listbox" hidden><li role="option">Option 1</li><li role="option">Option 2</li><li role="option">Option 3</li></ul></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* ---------- data (from the Figma frame; dates kept exactly as written there) ---------- */
+  var DATE = 'May 12, 2025,5:30:00 PM';
+  var EQ = [
+    { id:'D101', d:'Preheat Storage Vessel',    ex:1 }, { id:'D102', d:'Preheat Transfer Vessel',   ex:1 },
+    { id:'D103', d:'Primary Preheat Exchanger', ex:1 }, { id:'E101', d:'Primary Preheat Exchanger', ex:1 },
+    { id:'E102', d:'Secondary Preheat Exchanger' },
+    { id:'E101B', d:'Shell',  lvl:1, eq:'ASDA.101', cat:'Text', ex:1 }, { id:'G101A', d:'Bundle', lvl:1, eq:'ASDA.102', cat:'Text' },
+    { g:'Asset RCM Assessment', n:0 },
+    { id:'G103', d:'Secondary Preheat Exchanger' },
+    { g:'Fitness For Service', n:3, nested:1 },
+    { g:'Asset RCM Assessment', n:0 }, { g:'Fleet Assessment', n:0 }, { g:'Asset RCM Assessment', n:0 },
+    { id:'E102', d:'Secondary Preheat Exchanger', ex:1 }, { id:'E103', d:'Secondary Preheat Exchanger' },
+    { id:'G102', d:'Secondary Preheat Exchanger' }, { id:'G104', d:'Secondary Preheat Exchanger' },
+    { id:'G105', d:'Secondary Preheat Exchanger' }, { id:'E102', d:'Secondary Preheat Exchanger', ex:1 }
+  ];
+  var FFS = [
+    ['FFS.106','Local External Corrosion',3,'E101 - Shell','Local Metal Loss','Level 2'],
+    ['FFS.107','Corroded Nozzle',1,'D103 - Nozzle A','Surface Oxidation','Level 1'],
+    ['FFS.108','Pitted Tubes',1,'E101 - Bundle','Pitting Corrosion','Level 2']
+  ];
+  var UNITS = [['Distillation',3],['Reflux',3],['Reboiler',3],['Depentanizer',3],['Hydrotreater Unit'],['Isomerization Unit'],['FFC Unit'],['FFC Unit']];
+
+  var CH = '<svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg>';
+  var VESSEL = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="color:var(--color-text-label);flex-shrink:0"><rect x="6" y="3" width="12" height="18" rx="6"/><path d="M6 9h12M6 15h12"/></svg>';
+  var DOWN = '<svg width="14" height="18" viewBox="0 0 14 18" fill="none" stroke="#4353ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 2v13M2 12l3 3 3-3"/></svg>';
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]; }); }
+  function av() { return '<span class="av" aria-hidden="true">JD</span>'; }
+  function pill(n) { return '<span class="pill">' + esc(n) + '</span>'; }
+
+  function nested() {
+    var h = ['Assessment ID','Assessment Name','Asset Info','Assessment type','Level','Status'];
+    var w = [130, 200, 190, 160, 100, 80];
+    var s = '<div class="nested"><table><colgroup>' + w.map(function (x) { return '<col style="width:' + x + 'px">'; }).join('') + '</colgroup><thead><tr>' + h.map(function (x) { return '<th scope="col">' + x + '</th>'; }).join('') + '</tr></thead><tbody>';
+    FFS.forEach(function (r) {
+      s += '<tr><td><div class="cell">' + av() + esc(r[0]) + '</div></td><td><div class="cell">' + av() + esc(r[1]) + '</div></td>' +
+           '<td><div class="cell"><span class="cnt" aria-label="' + r[2] + ' linked">' + DOWN + '<b>' + r[2] + '</b></span><a class="lnk" href="#">' + esc(r[3]) + '</a></div></td>' +
+           '<td><div class="cell">' + av() + esc(r[4]) + '</div></td><td><div class="cell">' + av() + esc(r[5]) + '</div></td><td><span class="tag-green">Completed</span></td></tr>';
+    });
+    return s + '</tbody></table></div>';
+  }
+
+  function renderRows() {
+    var out = '';
+    EQ.forEach(function (r, i) {
+      if (r.g) {
+        out += '<tr class="static" data-q="' + esc(r.g.toLowerCase()) + '"><td colspan="8" style="padding-left:46px"><div class="grp">' +
+               '<button class="btn-plain" data-toggle="g' + i + '" aria-expanded="' + (r.nested ? 'true' : 'false') + '" style="all:unset;display:flex;align-items:center;gap:8px;cursor:pointer">' + CH + esc(r.g) + ' ' + pill(r.n) + '</button></div></td></tr>';
+        if (r.nested) out += '<tr class="static" id="g' + i + '" data-q="' + esc(r.g.toLowerCase()) + '"><td colspan="8" style="padding:0;height:auto">' + nested() + '</td></tr>';
+        return;
+      }
+      var pl = r.lvl ? 34 : 10;
+      out += '<tr data-q="' + esc((r.id + ' ' + r.d).toLowerCase()) + '">' +
+        '<td style="padding-left:' + pl + 'px"><div class="c1">' + (r.ex ? CH : '<span style="width:16px"></span>') + VESSEL + esc(r.id) + '</div></td>' +
+        '<td><div class="cell">' + av() + esc(r.d) + '</div></td>' +
+        '<td>' + esc(r.eq || 'ASDA.100') + '</td>' +
+        '<td><div class="cell">' + av() + esc(r.cat || 'Fixed (F)') + '</div></td>' +
+        '<td>DRUM</td>' +
+        '<td><div class="cell">' + av() + DATE + '</div></td>' +
+        '<td><div class="cell">' + av() + DATE + '</div></td>' +
+        '<td>' + CH + '</td></tr>';
+    });
+    document.getElementById('rows').innerHTML = out;
+  }
+  function renderUnits() {
+    document.getElementById('units').innerHTML = UNITS.map(function (u) {
+      return '<button class="node unit" data-q="' + esc(u[0].toLowerCase()) + '">' + CH + esc(u[0]) + (u[1] != null ? ' ' + pill(u[1]) : '') + '</button>';
+    }).join('');
+  }
+  renderRows(); renderUnits();
+
+  /* ---------- behaviour ---------- */
+  // expand / collapse: Crude Unit, Preheat Unit, Fitness For Service
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest('[data-toggle]'); if (!t) return;
+    var target = document.getElementById(t.getAttribute('data-toggle')); if (!target) return;
+    var open = t.getAttribute('aria-expanded') !== 'true';
+    t.setAttribute('aria-expanded', open ? 'true' : 'false');
+    target.style.display = open ? '' : 'none';
+  });
+  // filter hierarchy rows
+  document.getElementById('mq').addEventListener('input', function (e) {
+    var q = e.target.value.trim().toLowerCase();
+    document.querySelectorAll('#rows tr[data-q], #units [data-q]').forEach(function (el) {
+      el.style.display = (!q || el.getAttribute('data-q').indexOf(q) > -1) ? '' : 'none';
+    });
+  });
+  // tab bars + segmented control
+  document.querySelectorAll('[data-tabs]').forEach(function (bar) {
+    var tabs = bar.querySelectorAll('.tab');
+    tabs.forEach(function (t) { t.addEventListener('click', function () { tabs.forEach(function (x) { x.setAttribute('aria-selected', x === t ? 'true' : 'false'); }); }); });
+  });
+  var segs = document.querySelectorAll('.seg');
+  segs.forEach(function (s) { s.addEventListener('click', function () { segs.forEach(function (x) { x.setAttribute('aria-pressed', x === s ? 'true' : 'false'); }); }); });
+  // scroll control: nudge the clipped table right, wrap at the end
+  document.getElementById('scrollBtn').addEventListener('click', function () {
+    var w = document.getElementById('tree-body');
+    var atEnd = w.scrollLeft + w.clientWidth >= w.scrollWidth - 2;
+    var left = atEnd ? 0 : w.scrollLeft + 250;
+    if (w.scrollTo) w.scrollTo({ left: left, behavior: 'smooth' }); else w.scrollLeft = left;
+  });
+  // dropdown fields
+  document.querySelectorAll('[data-select]').forEach(function (f) {
+    var b = f.querySelector('button'), m = f.querySelector('.menu'), v = f.querySelector('.val');
+    b.addEventListener('click', function (e) { e.stopPropagation(); m.hidden = !m.hidden; b.setAttribute('aria-expanded', m.hidden ? 'false' : 'true'); });
+    m.querySelectorAll('li').forEach(function (li) { li.addEventListener('click', function () { v.textContent = li.textContent; v.classList.remove('ph'); m.hidden = true; b.setAttribute('aria-expanded', 'false'); }); });
+  });
+  document.addEventListener('click', function () { document.querySelectorAll('.menu').forEach(function (m) { m.hidden = true; }); });
+</script>
+</body>
+</html>
